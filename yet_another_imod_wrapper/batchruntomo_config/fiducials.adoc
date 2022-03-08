@@ -1,0 +1,33 @@
+setupset.copyarg.userawtlt = 1
+setupset.copyarg.stackext = mrc
+setupset.copyarg.rotation = 85
+setupset.copyarg.pixel = 0.0675
+setupset.copyarg.gold = 10
+setupset.copyarg.dual = 0
+
+runtime.Positioning.any.wholeTomogram = 1
+runtime.Fiducials.any.trackingMethod = 0
+runtime.Fiducials.any.seedingMethod = 3
+runtime.Excludeviews.any.deleteOldFiles = 0
+runtime.AlignedStack.any.binByFactor = 8
+
+comparam.prenewst.newstack.BinByFactor = 8
+comparam.prenewst.newstack.AntialiasFilter = -1
+
+comparam.autofidseed.autofidseed.TargetNumberOfBeads = 50
+
+comparam.track.beadtrack.SobelFilterCentering = 1
+comparam.track.beadtrack.ScalableSigmaForSobel = 0.12
+
+
+comparam.newst.newstack.TaperAtFill = 1,1
+comparam.newst.newstack.AntialiasFilter = -1
+comparam.golderaser.ccderaser.ExpandCircleIterations = 3
+comparam.eraser.ccderaser.PeakCriterion = 8.0
+comparam.eraser.ccderaser.DiffCriterion = 6.0
+
+comparam.align.tiltalign.TiltOption = 0
+comparam.align.tiltalign.SurfacesToAnalyze = 1
+comparam.align.tiltalign.RotOption = -1
+comparam.align.tiltalign.MagOption = 0
+comparam.align.tiltalign.BeamTiltOption = 2

@@ -1,0 +1,7 @@
+from pathlib import Path
+
+BATCHRUNTOMO_CONIFG_DIR = Path(__file__).parent / 'batchruntomo_config'
+BATCHRUNTOMO_CONFIG_FIDUCIALS = BATCHRUNTOMO_CONIFG_DIR / 'fiducials.adoc'
+BATCHRUNTOMO_CONFIG_PATCH_TRACKING = BATCHRUNTOMO_CONIFG_DIR / 'patch_tracking.adoc'
+
+TARGET_PIXEL_SIZE_FOR_ALIGNMENT = 10
