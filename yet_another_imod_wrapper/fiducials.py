@@ -1,22 +1,39 @@
+import os
 import subprocess
 from os import PathLike
 from pathlib import Path
-from typing import Dict, Any
+from typing import Dict, Any, List
 import tempfile
+
+import numpy as np
 
 from .constants import TARGET_PIXEL_SIZE_FOR_ALIGNMENT, BATCHRUNTOMO_CONFIG_FIDUCIALS
 from .utils import find_optimal_power_of_2_binning_factor
 from .batchruntomo_config.io import read_adoc, write_adoc
 
 
-def batchruntomo_fiducials(tilt_series_file, pixel_size, fiducial_size, rotation_angle):
-    tilt_series_directory = Path(tilt_series_file).parent
+def run_fiducial_based_alignment(
+        tilt_series_file: Path,
+        tilt_angles: List[float],
+        pixel_size: float,
+        fiducial_size: float,
+        nominal_rotation_angle: float,
+        output_directory: Path,
+):
     root_name = Path(tilt_series_file).stem
+    output_directory.mkdir(parents=True, exist_ok=True)
+
+    tilt_series_file_for_imod = output_directory / tilt_series_file
+    os.symlink(tilt_series_file, tilt_series_file_for_imod)
+
+    rawtlt_file = output_directory / f'{root_name}.rawtlt'
+    np.savetxt(tilt_angles, fname=rawtlt_file, fmt='%.2f', delimiter='')
+
     directive = generate_fiducial_alignment_directive(
-        tilt_series_file=tilt_series_file,
+        tilt_series_file=tilt_series_file_for_imod,
         pixel_size=pixel_size,
         fiducial_size=fiducial_size,
-        rotation_angle=rotation_angle
+        rotation_angle=nominal_rotation_angle
     )
     with tempfile.TemporaryDirectory() as temporary_directory:
         directive_file = Path(temporary_directory) / 'directive.adoc'
@@ -25,7 +42,7 @@ def batchruntomo_fiducials(tilt_series_file, pixel_size, fiducial_size, rotation
             'batchruntomo',
             '-DirectiveFile', f'{directive_file}',
             '-RootName', f'{root_name}',
-            '-CurrentLocation', f'{tilt_series_directory}',
+            '-CurrentLocation', f'{output_directory}',
             '-EndingStep', '6'
         ]
         subprocess.run(batchruntomo_command)
