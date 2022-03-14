@@ -1,58 +1,53 @@
-import subprocess
 from os import PathLike
 from pathlib import Path
-from typing import Dict, Any, Tuple
-import tempfile
+from typing import Dict, Any, Tuple, List
 
 from .constants import TARGET_PIXEL_SIZE_FOR_ALIGNMENT, BATCHRUNTOMO_CONFIG_PATCH_TRACKING
-from .utils import find_optimal_power_of_2_binning_factor
-from .batchruntomo_config.io import read_adoc, write_adoc
+from .utils import find_optimal_power_of_2_binning_factor, prepare_imod_directory, run_batchruntomo
+from .batchruntomo_config.io import read_adoc
 
 
-def batchruntomo_patch_tracking(
-        tilt_series_file: PathLike,
+def run_patch_tracking_alignment(
+        tilt_series_file: Path,
+        tilt_angles: List[float],
+        nominal_rotation_angle: float,
         pixel_size: float,
-        rotation_angle: float,
         patch_size_xy: Tuple[int, int],
-        patch_overlap_percentage: float
+        patch_overlap_percentage: float,
+        output_directory: Path,
 ):
-    """Run IMOD tilt-series alignment on a single tilt-series.
-
-    Tilt-series should be in its own directory with an associated text file
-    containing the raw tilt-angles, one per line.
-    e.g. TS_01/TS_01.mrc and TS_01/TS_01.rawtlt
+    """Run patch-tracking alignment in IMOD on a single tilt-series.
 
     Parameters
     ----------
     tilt_series_file: file containing tilt-series images
         File must be compatible with the version of IMOD installed.
+    tilt_angles: nominal stage tilt-angles from the microscope.
     pixel_size: pixel size of the tilt-series in angstroms-per-pixel
-    rotation_angle: initial estimate for the rotation angle
-        https://bio3d.colorado.edu/imod/doc/tomoguide.html#UnknownAxisAngle
+    nominal_rotation_angle: initial estimate for the rotation angle of the tilt
+        axis. https://bio3d.colorado.edu/imod/doc/tomoguide.html#UnknownAxisAngle
     patch_size_xy: size of patches to be tracked in the unbinned tilt-series
     patch_overlap_percentage: overlap between patches in each direction.
         e.g. 33 for 33% overlap in each direction.
+    output_directory: tilt-series directory for IMOD.
     """
-    tilt_series_directory = Path(tilt_series_file).parent
-    root_name = Path(tilt_series_file).stem
+    prepare_imod_directory(
+        tilt_series_file=tilt_series_file,
+        tilt_angles=tilt_angles,
+        imod_directory=output_directory
+    )
     directive = generate_patch_tracking_alignment_directive(
         tilt_series_file=tilt_series_file,
         pixel_size=pixel_size,
-        rotation_angle=rotation_angle,
+        rotation_angle=nominal_rotation_angle,
         patch_size_xy=patch_size_xy,
         patch_overlap_percentage=patch_overlap_percentage,
     )
-    with tempfile.TemporaryDirectory() as temporary_directory:
-        directive_file = Path(temporary_directory) / 'directive.adoc'
-        write_adoc(directive, directive_file)
-        batchruntomo_command = [
-            'batchruntomo',
-            '-DirectiveFile', f'{directive_file}',
-            '-RootName', f'{root_name}',
-            '-CurrentLocation', f'{tilt_series_directory}',
-            '-EndingStep', '6'
-        ]
-        subprocess.run(batchruntomo_command)
+    run_batchruntomo(
+        tilt_series_file=tilt_series_file,
+        imod_directory=output_directory,
+        directive=directive
+    )
 
 
 def generate_patch_tracking_alignment_directive(
@@ -66,9 +61,9 @@ def generate_patch_tracking_alignment_directive(
 
     Parameters
     ----------
-    tilt_series_file : file containing the tilt-series stack
-    pixel_size : pixel size in the tilt-series (angstroms per pixel)
-    fiducial_size : fiducial size (nanometers)
+    tilt_series_file : file containing the tilt-series stack.
+    pixel_size : pixel size in the tilt-series in Angstroms per pixel.
+    fiducial_size : approximate fiducial size in nanometers.
     rotation_angle : initial estimate for the rotation angle
         https://bio3d.colorado.edu/imod/doc/tomoguide.html#UnknownAxisAngle
     patch_size_xy: patch size in the unbinned tilt-series

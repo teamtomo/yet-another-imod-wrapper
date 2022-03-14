@@ -1,15 +1,10 @@
-import os
-import subprocess
 from os import PathLike
 from pathlib import Path
 from typing import Dict, Any, List
-import tempfile
 
-import numpy as np
-
+from .batchruntomo_config.io import read_adoc
 from .constants import TARGET_PIXEL_SIZE_FOR_ALIGNMENT, BATCHRUNTOMO_CONFIG_FIDUCIALS
-from .utils import find_optimal_power_of_2_binning_factor
-from .batchruntomo_config.io import read_adoc, write_adoc
+from .utils import find_optimal_power_of_2_binning_factor, prepare_imod_directory, run_batchruntomo
 
 
 def run_fiducial_based_alignment(
@@ -20,32 +15,31 @@ def run_fiducial_based_alignment(
         nominal_rotation_angle: float,
         output_directory: Path,
 ):
-    root_name = Path(tilt_series_file).stem
-    output_directory.mkdir(parents=True, exist_ok=True)
+    """Run fiducial based alignment in IMOD on a single tilt-series.
 
-    tilt_series_file_for_imod = output_directory / tilt_series_file
-    os.symlink(tilt_series_file, tilt_series_file_for_imod)
-
-    rawtlt_file = output_directory / f'{root_name}.rawtlt'
-    np.savetxt(tilt_angles, fname=rawtlt_file, fmt='%.2f', delimiter='')
-
+    Parameters
+    ----------
+    tilt_series_file: file containing tilt-series images.
+        File must be compatible with the version of IMOD installed.
+    tilt_angles: nominal stage tilt-angles from the microscope.
+    pixel_size: nominal pixel size in Angstroms per pixel.
+    fiducial_size: approximate size of fiducials in nanometers.
+    nominal_rotation_angle: initial estimate for the rotation angle of the tilt
+        axis. https://bio3d.colorado.edu/imod/doc/tomoguide.html#UnknownAxisAngle
+    output_directory: tilt-series directory for IMOD.
+    """
+    prepare_imod_directory(tilt_series_file, tilt_angles, output_directory)
     directive = generate_fiducial_alignment_directive(
-        tilt_series_file=tilt_series_file_for_imod,
+        tilt_series_file=tilt_series_file,
         pixel_size=pixel_size,
         fiducial_size=fiducial_size,
         rotation_angle=nominal_rotation_angle
     )
-    with tempfile.TemporaryDirectory() as temporary_directory:
-        directive_file = Path(temporary_directory) / 'directive.adoc'
-        write_adoc(directive, directive_file)
-        batchruntomo_command = [
-            'batchruntomo',
-            '-DirectiveFile', f'{directive_file}',
-            '-RootName', f'{root_name}',
-            '-CurrentLocation', f'{output_directory}',
-            '-EndingStep', '6'
-        ]
-        subprocess.run(batchruntomo_command)
+    run_batchruntomo(
+        tilt_series_file=tilt_series_file,
+        imod_directory=output_directory,
+        directive=directive
+    )
 
 
 def generate_fiducial_alignment_directive(
@@ -74,4 +68,3 @@ def generate_fiducial_alignment_directive(
     directive['setupset.copyarg.gold'] = fiducial_size
     directive['comparam.prenewst.newstack.BinByFactor'] = alignment_binning_factor
     return directive
-
