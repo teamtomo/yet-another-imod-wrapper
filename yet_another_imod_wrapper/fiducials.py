@@ -4,10 +4,15 @@ from typing import Dict, Any, List
 
 from .batchruntomo_config.io import read_adoc
 from .constants import TARGET_PIXEL_SIZE_FOR_ALIGNMENT, BATCHRUNTOMO_CONFIG_FIDUCIALS
-from .utils import find_optimal_power_of_2_binning_factor, prepare_imod_directory, run_batchruntomo
+from .utils import (
+    find_optimal_power_of_2_binning_factor,
+    prepare_imod_directory,
+    run_batchruntomo,
+    imod_is_installed,
+)
 
 
-def align_with_fiducials(
+def align_using_fiducials(
         tilt_series_file: Path,
         tilt_angles: List[float],
         pixel_size: float,
@@ -28,7 +33,14 @@ def align_with_fiducials(
         axis. https://bio3d.colorado.edu/imod/doc/tomoguide.html#UnknownAxisAngle
     output_directory: tilt-series directory for IMOD.
     """
-    prepare_imod_directory(tilt_series_file, tilt_angles, output_directory)
+    if not imod_is_installed():
+        raise RuntimeError('No IMOD installation found.')
+
+    prepare_imod_directory(
+        tilt_series_file=tilt_series_file,
+        tilt_angles=tilt_angles,
+        output_directory=output_directory
+    )
     directive = generate_fiducial_alignment_directive(
         tilt_series_file=tilt_series_file,
         pixel_size=pixel_size,

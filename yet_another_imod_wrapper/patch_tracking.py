@@ -2,12 +2,17 @@ from os import PathLike
 from pathlib import Path
 from typing import Dict, Any, Tuple, List
 
-from .constants import TARGET_PIXEL_SIZE_FOR_ALIGNMENT, BATCHRUNTOMO_CONFIG_PATCH_TRACKING
-from .utils import find_optimal_power_of_2_binning_factor, prepare_imod_directory, run_batchruntomo
 from .batchruntomo_config.io import read_adoc
+from .constants import TARGET_PIXEL_SIZE_FOR_ALIGNMENT, BATCHRUNTOMO_CONFIG_PATCH_TRACKING
+from .utils import (
+    find_optimal_power_of_2_binning_factor,
+    prepare_imod_directory,
+    run_batchruntomo,
+    imod_is_installed,
+)
 
 
-def align_with_patch_tracking(
+def align_using_patch_tracking(
         tilt_series_file: Path,
         tilt_angles: List[float],
         nominal_rotation_angle: float,
@@ -31,6 +36,9 @@ def align_with_patch_tracking(
         e.g. 33 for 33% overlap in each direction.
     output_directory: tilt-series directory for IMOD.
     """
+    if not imod_is_installed():
+        raise RuntimeError('No IMOD installation found.')
+
     prepare_imod_directory(
         tilt_series_file=tilt_series_file,
         tilt_angles=tilt_angles,
