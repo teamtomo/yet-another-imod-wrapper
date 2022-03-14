@@ -39,11 +39,11 @@ def prepare_imod_directory(
     root_name = tilt_series_file.stem
     imod_directory.mkdir(parents=True, exist_ok=True)
 
-    tilt_series_file_for_imod = imod_directory / tilt_series_file
+    tilt_series_file_for_imod = imod_directory / tilt_series_file.name
     os.symlink(tilt_series_file, tilt_series_file_for_imod)
 
     rawtlt_file = imod_directory / f'{root_name}.rawtlt'
-    np.savetxt(tilt_angles, fname=rawtlt_file, fmt='%.2f', delimiter='')
+    np.savetxt(rawtlt_file, tilt_angles,  fmt='%.2f', delimiter='')
 
 
 def run_batchruntomo(

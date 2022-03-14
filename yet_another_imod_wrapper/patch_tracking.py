@@ -7,7 +7,7 @@ from .utils import find_optimal_power_of_2_binning_factor, prepare_imod_director
 from .batchruntomo_config.io import read_adoc
 
 
-def run_patch_tracking_alignment(
+def align_with_patch_tracking(
         tilt_series_file: Path,
         tilt_angles: List[float],
         nominal_rotation_angle: float,

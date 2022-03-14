@@ -7,7 +7,7 @@ from .constants import TARGET_PIXEL_SIZE_FOR_ALIGNMENT, BATCHRUNTOMO_CONFIG_FIDU
 from .utils import find_optimal_power_of_2_binning_factor, prepare_imod_directory, run_batchruntomo
 
 
-def run_fiducial_based_alignment(
+def align_with_fiducials(
         tilt_series_file: Path,
         tilt_angles: List[float],
         pixel_size: float,
