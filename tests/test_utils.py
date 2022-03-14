@@ -3,13 +3,12 @@ import numpy as np
 from yet_another_imod_wrapper.utils import (
     find_optimal_power_of_2_binning_factor,
     find_optimal_integer_binning_factor,
-    prepare_imod_directory,
-imod_is_installed
+    prepare_imod_directory
 )
 
 
 def test_find_optimal_power_of_2_binning_factor():
-    result =  find_optimal_power_of_2_binning_factor(
+    result = find_optimal_power_of_2_binning_factor(
         src_pixel_size=2, target_pixel_size=10
     )
     assert result == 4
@@ -42,8 +41,3 @@ def test_prepare_imod_directory(tmp_path):
 
     output_tilt_angles = np.loadtxt(output_rawtlt_file)
     assert np.allclose(tilt_angles, output_tilt_angles)
-
-
-def test_imod_is_installed():
-    result = imod_is_installed()
-    assert result in (True, False)
