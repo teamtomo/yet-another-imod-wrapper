@@ -12,7 +12,7 @@ from .utils import (
 )
 
 
-def align_using_patch_tracking(
+def run_patch_tracking_based_alignment(
         tilt_series_file: Path,
         tilt_angles: List[float],
         nominal_rotation_angle: float,
