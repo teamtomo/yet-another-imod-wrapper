@@ -12,7 +12,7 @@ from .utils import (
 )
 
 
-def align_using_fiducials(
+def run_fiducial_based_alignment(
         tilt_series_file: Path,
         tilt_angles: List[float],
         pixel_size: float,

@@ -1,2 +1,2 @@
-from .fiducials import align_using_fiducials
+from .fiducials import run_fiducial_based_alignment
 from .patch_tracking import align_using_patch_tracking
