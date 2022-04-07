@@ -41,7 +41,7 @@ jobs:
 
       # this runs the platform-specific tests
       - name: Test with pytest
-        run: pytest
+        run: pytest tests
         env:
           PLATFORM: ${{ matrix.platform }}
 

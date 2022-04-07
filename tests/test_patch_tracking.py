@@ -14,8 +14,8 @@ def test_alignment_directive_generation():
     )
     assert directive == {
         'setupset.copyarg.userawtlt': '1', 'setupset.copyarg.stackext': '.mrc',
-        'setupset.copyarg.rotation': 45.5,
-        'setupset.copyarg.pixel': 1.05 / 10,
+        'setupset.copyarg.rotation': str(45.5),
+        'setupset.copyarg.pixel': str(1.05 / 10),
         'setupset.copyarg.gold': '10', 'setupset.copyarg.dual': '0',
         'runtime.Positioning.any.wholeTomogram': '1',
         'runtime.PatchTracking.any.adjustTiltAngles': '0',
@@ -33,7 +33,7 @@ def test_alignment_directive_generation():
         'comparam.track.beadtrack.SobelFilterCentering': '1',
         'comparam.track.beadtrack.ScalableSigmaForSobel': '0.12',
         'comparam.tilt.tilt.THICKNESS': '3000',
-        'comparam.prenewst.newstack.BinByFactor': 8,
+        'comparam.prenewst.newstack.BinByFactor': str(8),
         'comparam.prenewst.newstack.AntialiasFilter': '-1',
         'comparam.newst.newstack.TaperAtFill': '1,1',
         'comparam.newst.newstack.AntialiasFilter': '-1',

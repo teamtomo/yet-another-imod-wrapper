@@ -75,8 +75,8 @@ def generate_fiducial_alignment_directive(
     )
     directive = read_adoc(BATCHRUNTOMO_CONFIG_FIDUCIALS)
     directive['setupset.copyarg.stackext'] = Path(tilt_series_file).suffix
-    directive['setupset.copyarg.rotation'] = rotation_angle
-    directive['setupset.copyarg.pixel'] = pixel_size / 10
-    directive['setupset.copyarg.gold'] = fiducial_size
-    directive['comparam.prenewst.newstack.BinByFactor'] = alignment_binning_factor
+    directive['setupset.copyarg.rotation'] = str(rotation_angle)
+    directive['setupset.copyarg.pixel'] = str(pixel_size / 10)
+    directive['setupset.copyarg.gold'] = str(fiducial_size)
+    directive['comparam.prenewst.newstack.BinByFactor'] = str(alignment_binning_factor)
     return directive
