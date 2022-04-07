@@ -39,7 +39,7 @@ def align_using_fiducials(
     prepare_imod_directory(
         tilt_series_file=tilt_series_file,
         tilt_angles=tilt_angles,
-        output_directory=output_directory
+        imod_directory=output_directory
     )
     directive = generate_fiducial_alignment_directive(
         tilt_series_file=tilt_series_file,
