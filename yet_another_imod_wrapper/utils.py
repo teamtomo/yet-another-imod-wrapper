@@ -73,6 +73,6 @@ def find_optimal_power_of_2_binning_factor(
 
 def force_symlink(src: Path, link_name: Path):
     """Force creation of a symbolic link, removing any existing file."""
-    if link_name.exists:
+    if link_name.exists():
         os.remove(link_name)
     os.symlink(src, link_name)
