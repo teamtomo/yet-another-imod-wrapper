@@ -24,7 +24,7 @@ def prepare_imod_directory(
     imod_directory.mkdir(exist_ok=True, parents=True)
 
     tilt_series_file_for_imod = imod_directory / tilt_series_file.name
-    os.symlink(tilt_series_file.absolute(), tilt_series_file_for_imod)
+    force_symlink(tilt_series_file.absolute(), tilt_series_file_for_imod)
 
     rawtlt_file = imod_directory / f'{root_name}.rawtlt'
     np.savetxt(rawtlt_file, tilt_angles, fmt='%.2f', delimiter='')
@@ -69,3 +69,10 @@ def find_optimal_power_of_2_binning_factor(
 ) -> int:
     binning_factors = 2 ** np.arange(6)
     return _find_optimal_binning_factor(binning_factors, src_pixel_size, target_pixel_size)
+
+
+def force_symlink(src: Path, link_name: Path):
+    """Force creation of a symbolic link, removing any existing file."""
+    if link_name.exists:
+        os.remove(link_name)
+    os.symlink(src, link_name)
