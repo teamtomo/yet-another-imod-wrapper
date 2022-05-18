@@ -7,7 +7,7 @@ from yet_another_imod_wrapper.fiducials import run_fiducial_based_alignment
 TEST_DATA_DIR = Path(__file__).parent.parent / 'tilt_series'
 
 run_fiducial_based_alignment(
-    tilt_series_file=TEST_DATA_DIR / 'TS_01.mrc',
+    tilt_series_file=TEST_DATA_DIR / 'my_prefix_TS_01.mrc',
     tilt_angles=np.arange(-60, 63, 3),
     pixel_size=1.35,
     fiducial_size=10,
