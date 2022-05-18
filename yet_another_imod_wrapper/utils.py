@@ -11,6 +11,7 @@ from yet_another_imod_wrapper.batchruntomo_config.io import write_adoc
 
 
 def imod_is_installed() -> bool:
+    """Check if batchruntomo is on the PATH."""
     return shutil.which('batchruntomo') is not None
 
 
