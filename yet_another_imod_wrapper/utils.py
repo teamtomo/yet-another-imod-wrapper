@@ -1,6 +1,7 @@
 import os
 import subprocess
 import tempfile
+import shutil
 from pathlib import Path
 from typing import List, Dict
 
@@ -10,11 +11,7 @@ from yet_another_imod_wrapper.batchruntomo_config.io import write_adoc
 
 
 def imod_is_installed() -> bool:
-    command = ['batchruntomo', '--help']
-    completed_process = subprocess.run(command)
-    if completed_process.returncode == 0:
-        return True
-    return False
+    return shutil.which('batchruntomo') is not None
 
 
 def prepare_imod_directory(
