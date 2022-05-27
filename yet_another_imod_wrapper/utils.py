@@ -4,6 +4,7 @@ import tempfile
 import shutil
 from pathlib import Path
 from typing import List, Dict
+from packaging import version
 
 import numpy as np
 
@@ -11,10 +12,17 @@ from yet_another_imod_wrapper.batchruntomo_config.io import write_adoc
 
 
 def imod_is_installed() -> bool:
-    """Check if batchruntomo is on the PATH."""
+    """Check if batchruntomo is on the PATH"""
     return shutil.which('batchruntomo') is not None
 
-
+def imod_version() -> bool:
+    """Check IMOD version is correct."""
+    imod_help_output = os.popen('imod -h').read().split()
+    find_version_idx = imod_help_output.index('Version') + 1
+    imod_version = version.parse(imod_help_output[find_version_idx])
+    correct_imod_version = imod_version >= version.parse('4.11.0')
+    return correct_imod_version, imod_version
+    
 def prepare_imod_directory(
         tilt_series_file: Path, tilt_angles: List[float], imod_directory: Path
 ):
