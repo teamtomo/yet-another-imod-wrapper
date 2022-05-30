@@ -45,7 +45,7 @@ def run_patch_tracking_based_alignment(
         console.log(f'ERROR: {e}')
         raise RuntimeError(e)
     imod_version = get_imod_version()
-    if not imod_version >= version.parse(REQUIRED_IMOD_VERSION):
+    if imod_version < version.parse(REQUIRED_IMOD_VERSION):
         e = f'Ensure IMOD version {REQUIRED_IMOD_VERSION} or higher is installed. Your version is {imod_version}'
         console.log(f'ERROR: {e}')
     prepare_imod_directory(
