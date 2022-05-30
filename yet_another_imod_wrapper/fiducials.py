@@ -42,8 +42,7 @@ def run_fiducial_based_alignment(
         console.log(f'ERROR: {e}')
         raise RuntimeError(e)
     imod_version = extract_imod_version()
-    imod_version_correct = imod_version >= version.parse(REQUIRED_IMOD_VERSION)
-    if not imod_version_correct:
+    if not imod_version >= version.parse(REQUIRED_IMOD_VERSION):
         e = f'Ensure IMOD version {REQUIRED_IMOD_VERSION} or higher is installed. Your version is {imod_version}'
         console.log(f'ERROR: {e}')
     prepare_imod_directory(
