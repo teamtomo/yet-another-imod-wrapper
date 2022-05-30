@@ -1,16 +1,20 @@
 from os import PathLike
 from pathlib import Path
 from typing import Dict, Any, List
+from rich.console import Console
+from packaging import version
 
 from .batchruntomo_config.io import read_adoc
-from .constants import TARGET_PIXEL_SIZE_FOR_ALIGNMENT, BATCHRUNTOMO_CONFIG_FIDUCIALS
+from .constants import TARGET_PIXEL_SIZE_FOR_ALIGNMENT, BATCHRUNTOMO_CONFIG_FIDUCIALS, REQUIRED_IMOD_VERSION
 from .utils import (
     find_optimal_power_of_2_binning_factor,
     prepare_imod_directory,
     run_batchruntomo,
     imod_is_installed,
+    get_imod_version
 )
 
+console = Console(record=True)
 
 def run_fiducial_based_alignment(
         tilt_series_file: Path,
@@ -34,8 +38,13 @@ def run_fiducial_based_alignment(
     output_directory: tilt-series directory for IMOD.
     """
     if not imod_is_installed():
-        raise RuntimeError('No IMOD installation found.')
-
+        e = 'No IMOD installation found.'
+        console.log(f'ERROR: {e}')
+        raise RuntimeError(e)
+    imod_version = get_imod_version()
+    if imod_version < version.parse(REQUIRED_IMOD_VERSION):
+        e = f'Ensure IMOD version {REQUIRED_IMOD_VERSION} or higher is installed. Your version is {imod_version}'
+        console.log(f'ERROR: {e}')
     prepare_imod_directory(
         tilt_series_file=tilt_series_file,
         tilt_angles=tilt_angles,
