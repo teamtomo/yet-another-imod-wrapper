@@ -11,7 +11,7 @@ from .utils import (
     prepare_imod_directory,
     run_batchruntomo,
     imod_is_installed,
-    extract_imod_version
+    get_imod_version
 )
 
 console = Console(record=True)
