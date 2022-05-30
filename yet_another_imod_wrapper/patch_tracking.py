@@ -2,15 +2,16 @@ from os import PathLike
 from pathlib import Path
 from typing import Dict, Any, Tuple, List
 from rich.console import Console
+from packaging import version
 
 from .batchruntomo_config.io import read_adoc
-from .constants import TARGET_PIXEL_SIZE_FOR_ALIGNMENT, BATCHRUNTOMO_CONFIG_PATCH_TRACKING
+from .constants import TARGET_PIXEL_SIZE_FOR_ALIGNMENT, BATCHRUNTOMO_CONFIG_PATCH_TRACKING, REQUIRED_IMOD_VERSION
 from .utils import (
     find_optimal_power_of_2_binning_factor,
     prepare_imod_directory,
     run_batchruntomo,
     imod_is_installed,
-    imod_version
+    extract_imod_version
 )
 
 console = Console(record=True)
@@ -43,9 +44,10 @@ def run_patch_tracking_based_alignment(
         e = 'No IMOD installation found.'
         console.log(f'ERROR: {e}')
         raise RuntimeError(e)
-    imod_version_correct = imod_version()
-    if not imod_version_correct[0]:
-        e = f'Ensure IMOD version 4.11 or higher is installed. Your version is {imod_version_correct[1]}'
+    imod_version = extract_imod_version()
+    imod_version_correct = imod_version >= version.parse(REQUIRED_IMOD_VERSION)
+    if not imod_version_correct:
+        e = f'Ensure IMOD version {REQUIRED_IMOD_VERSION} or higher is installed. Your version is {imod_version}'
         console.log(f'ERROR: {e}')
     prepare_imod_directory(
         tilt_series_file=tilt_series_file,

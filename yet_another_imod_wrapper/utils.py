@@ -15,13 +15,12 @@ def imod_is_installed() -> bool:
     """Check if batchruntomo is on the PATH"""
     return shutil.which('batchruntomo') is not None
 
-def imod_version() -> bool:
-    """Check IMOD version is correct."""
+def extract_imod_version() -> str:
+    """Extract IMOD version to check >= v4.11."""
     imod_help_output = os.popen('imod -h').read().split()
     find_version_idx = imod_help_output.index('Version') + 1
     imod_version = version.parse(imod_help_output[find_version_idx])
-    correct_imod_version = imod_version >= version.parse('4.11.0')
-    return correct_imod_version, imod_version
+    return imod_version
     
 def prepare_imod_directory(
         tilt_series_file: Path, tilt_angles: List[float], imod_directory: Path
