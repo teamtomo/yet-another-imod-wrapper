@@ -12,15 +12,24 @@ from yet_another_imod_wrapper.batchruntomo_config.io import write_adoc
 
 
 def imod_is_installed() -> bool:
-    """Check if batchruntomo is on the PATH"""
-    return shutil.which('batchruntomo') is not None
+    """Check if IMOD is installed and on the PATH."""
+    return shutil.which('imod') is not None
 
-def get_imod_version() -> str:
-    """Extract IMOD version to check >= v4.11."""
-    imod_help_output = os.popen('imod -h').read().split()
-    find_version_idx = imod_help_output.index('Version') + 1
-    imod_version = version.parse(imod_help_output[find_version_idx])
-    return imod_version
+
+def get_imod_directory() -> Path:
+    """Get path to IMOD installation."""
+    imod_dir = os.environ.get('IMOD_DIR')
+    if imod_dir is None:
+        raise ValueError('IMOD_DIR is not set, please check your IMOD installation.')
+    return Path(imod_dir)
+
+
+def get_imod_version() -> version.Version:
+    """Get IMOD version."""
+    imod_dir = get_imod_directory()
+    with open(imod_dir / 'VERSION') as f:
+        return version.parse(f.readline().strip())
+
     
 def prepare_imod_directory(
         tilt_series_file: Path, tilt_angles: List[float], imod_directory: Path
