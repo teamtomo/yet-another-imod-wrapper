@@ -3,7 +3,7 @@ import subprocess
 import tempfile
 import shutil
 from pathlib import Path
-from typing import List, Dict, Tuple
+from typing import List, Dict
 
 import mrcfile
 from packaging import version
