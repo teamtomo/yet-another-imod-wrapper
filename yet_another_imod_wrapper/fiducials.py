@@ -16,6 +16,7 @@ from .utils import (
 
 console = Console(record=True)
 
+
 def run_fiducial_based_alignment(
         tilt_series_file: Path,
         tilt_angles: List[float],
@@ -50,7 +51,7 @@ def run_fiducial_based_alignment(
         tilt_angles=tilt_angles,
         imod_directory=output_directory
     )
-    directive = generate_fiducial_alignment_directive(
+    directive = generate_alignment_directive(
         tilt_series_file=tilt_series_file,
         pixel_size=pixel_size,
         fiducial_size=fiducial_size,
@@ -63,7 +64,7 @@ def run_fiducial_based_alignment(
     )
 
 
-def generate_fiducial_alignment_directive(
+def generate_alignment_directive(
         tilt_series_file: PathLike,
         pixel_size: float,
         fiducial_size: float,

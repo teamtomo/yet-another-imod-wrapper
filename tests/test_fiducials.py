@@ -1,11 +1,11 @@
 from pathlib import Path
 
-from yet_another_imod_wrapper.fiducials import generate_fiducial_alignment_directive
+from yet_another_imod_wrapper.fiducials import generate_alignment_directive
 
 
 def test_alignment_directive_generation():
     """Check that fiducial based alignment directive is properly generated."""
-    directive = generate_fiducial_alignment_directive(
+    directive = generate_alignment_directive(
         tilt_series_file=Path('test.mrc'),
         pixel_size=1.05,
         fiducial_size=10,
