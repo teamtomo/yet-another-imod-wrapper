@@ -2,11 +2,11 @@ from pathlib import Path
 
 import numpy as np
 
-from yet_another_imod_wrapper.fiducials import run_fiducial_based_alignment
+from yet_another_imod_wrapper.fiducials import align_tilt_series_using_fiducials
 
 TEST_DATA_DIR = Path(__file__).parent.parent / 'tilt_series'
 
-run_fiducial_based_alignment(
+align_tilt_series_using_fiducials(
     tilt_series_file=TEST_DATA_DIR / 'my_prefix_TS_01.mrc',
     tilt_angles=np.arange(-60, 63, 3),
     pixel_size=1.35,

@@ -3,10 +3,9 @@ from pathlib import Path
 from typing import Dict, Any, List
 
 import numpy as np
-from rich.console import Console
 
 from .batchruntomo_config.io import read_adoc
-from .constants import TARGET_PIXEL_SIZE_FOR_ALIGNMENT, BATCHRUNTOMO_CONFIG_FIDUCIALS, MINIMUM_IMOD_VERSION
+from .constants import TARGET_PIXEL_SIZE_FOR_ALIGNMENT, BATCHRUNTOMO_CONFIG_FIDUCIALS
 from .utils import (
     find_optimal_power_of_2_binning_factor,
     prepare_etomo_directory,
@@ -14,10 +13,8 @@ from .utils import (
     check_imod_installation
 )
 
-console = Console(record=True)
 
-
-def run_fiducial_based_alignment(
+def align_tilt_series_using_fiducials(
         tilt_series: np.ndarray,
         tilt_angles: List[float],
         pixel_size: float,
@@ -59,6 +56,8 @@ def run_fiducial_based_alignment(
         basename=basename,
         directive=directive
     )
+    if not etomo_directory.contains_alignment_results:
+        raise RuntimeError(f'{basename} failed to align correctly.')
 
 
 def generate_alignment_directive(

@@ -1,2 +1,2 @@
-from .fiducials import run_fiducial_based_alignment
-from .patch_tracking import run_patch_tracking_based_alignment
+from .fiducials import align_tilt_series_using_fiducials
+from .patch_tracking import align_tilt_series_using_patch_tracking

@@ -1,12 +1,11 @@
 from os import PathLike
 from pathlib import Path
-from typing import Dict, Any, Tuple, List
+from typing import Dict, Any, Tuple, Sequence
 
 import numpy as np
-from rich.console import Console
 
 from .batchruntomo_config.io import read_adoc
-from .constants import TARGET_PIXEL_SIZE_FOR_ALIGNMENT, BATCHRUNTOMO_CONFIG_PATCH_TRACKING, MINIMUM_IMOD_VERSION
+from .constants import TARGET_PIXEL_SIZE_FOR_ALIGNMENT, BATCHRUNTOMO_CONFIG_PATCH_TRACKING
 from .utils import (
     find_optimal_power_of_2_binning_factor,
     prepare_etomo_directory,
@@ -14,12 +13,10 @@ from .utils import (
     check_imod_installation
 )
 
-console = Console(record=True)
 
-
-def run_patch_tracking_based_alignment(
+def align_tilt_series_using_patch_tracking(
         tilt_series: np.ndarray,
-        tilt_angles: List[float],
+        tilt_angles: Sequence[float],
         nominal_rotation_angle: float,
         pixel_size: float,
         patch_size_xy: Tuple[int, int],
@@ -31,8 +28,7 @@ def run_patch_tracking_based_alignment(
 
     Parameters
     ----------
-    tilt_series_file: file containing tilt-series images
-        File must be compatible with the version of IMOD installed.
+    tilt_series: (n, y, x) array of 2D tilt-images in a tilt-series.
     tilt_angles: nominal stage tilt-angles from the microscope.
     pixel_size: pixel size of the tilt-series in angstroms-per-pixel
     nominal_rotation_angle: initial estimate for the rotation angle of the tilt

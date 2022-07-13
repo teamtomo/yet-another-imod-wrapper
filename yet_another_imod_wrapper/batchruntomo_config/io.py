@@ -3,6 +3,7 @@ from typing import Dict
 
 
 def read_adoc(adoc_file: PathLike) -> Dict[str, str]:
+    """Read an IMOD adoc file into a dictionary."""
     with open(adoc_file) as adoc:
         lines = adoc.readlines()
     lines = [
@@ -15,6 +16,7 @@ def read_adoc(adoc_file: PathLike) -> Dict[str, str]:
 
 
 def write_adoc(data: dict, output_filename: PathLike):
+    """Write an IMOD adoc file from a dictionary."""
     with open(output_filename, 'w') as adoc:
         for k, v in data.items():
             adoc.write(f"{k} = {v}\n")
