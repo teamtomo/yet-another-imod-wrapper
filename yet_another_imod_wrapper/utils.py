@@ -8,7 +8,7 @@ from packaging import version
 
 import numpy as np
 
-from yet_another_imod_wrapper.batchruntomo_config.io import write_adoc
+from .batchruntomo_config.io import write_adoc
 
 
 def imod_is_installed() -> bool:
