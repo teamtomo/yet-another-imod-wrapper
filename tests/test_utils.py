@@ -3,7 +3,7 @@ import numpy as np
 from yet_another_imod_wrapper.utils import (
     find_optimal_power_of_2_binning_factor,
     find_optimal_integer_binning_factor,
-    prepare_imod_directory
+    prepare_etomo_directory
 )
 
 
@@ -28,10 +28,10 @@ def test_prepare_imod_directory(tmp_path):
     tilt_angles = np.arange(-6, 9, 3)
 
     root_name = tilt_series_file.stem
-    prepare_imod_directory(
+    prepare_etomo_directory(
         tilt_series_file=tilt_series_file,
         tilt_angles=tilt_angles,
-        imod_directory=imod_directory
+        directory=imod_directory
     )
 
     output_rawtlt_file = imod_directory / f'{root_name}.rawtlt'

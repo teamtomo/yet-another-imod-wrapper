@@ -1,28 +1,30 @@
 from os import PathLike
 from pathlib import Path
 from typing import Dict, Any, Tuple, List
+
+import numpy as np
 from rich.console import Console
-from packaging import version
 
 from .batchruntomo_config.io import read_adoc
-from .constants import TARGET_PIXEL_SIZE_FOR_ALIGNMENT, BATCHRUNTOMO_CONFIG_PATCH_TRACKING, REQUIRED_IMOD_VERSION
+from .constants import TARGET_PIXEL_SIZE_FOR_ALIGNMENT, BATCHRUNTOMO_CONFIG_PATCH_TRACKING, MINIMUM_IMOD_VERSION
 from .utils import (
     find_optimal_power_of_2_binning_factor,
-    prepare_imod_directory,
+    prepare_etomo_directory,
     run_batchruntomo,
-    imod_is_installed,
-    get_imod_version
+    check_imod_installation
 )
 
 console = Console(record=True)
 
+
 def run_patch_tracking_based_alignment(
-        tilt_series_file: Path,
+        tilt_series: np.ndarray,
         tilt_angles: List[float],
         nominal_rotation_angle: float,
         pixel_size: float,
         patch_size_xy: Tuple[int, int],
         patch_overlap_percentage: float,
+        basename: str,
         output_directory: Path,
 ):
     """Run patch-tracking alignment in IMOD on a single tilt-series.
@@ -38,33 +40,30 @@ def run_patch_tracking_based_alignment(
     patch_size_xy: size of patches to be tracked in the unbinned tilt-series
     patch_overlap_percentage: overlap between patches in each direction.
         e.g. 33 for 33% overlap in each direction.
+    basename: basename for IMOD files.
     output_directory: tilt-series directory for IMOD.
     """
-    if not imod_is_installed():
-        e = 'No IMOD installation found.'
-        console.log(f'ERROR: {e}')
-        raise RuntimeError(e)
-    imod_version = get_imod_version()
-    if imod_version < version.parse(REQUIRED_IMOD_VERSION):
-        e = f'Ensure IMOD version {REQUIRED_IMOD_VERSION} or higher is installed. Your version is {imod_version}'
-        console.log(f'ERROR: {e}')
-    prepare_imod_directory(
-        tilt_series_file=tilt_series_file,
+    check_imod_installation()
+    etomo_directory = prepare_etomo_directory(
+        directory=output_directory,
+        tilt_series=tilt_series,
         tilt_angles=tilt_angles,
-        imod_directory=output_directory
+        basename=basename,
     )
     directive = generate_patch_tracking_alignment_directive(
-        tilt_series_file=tilt_series_file,
+        tilt_series_file=etomo_directory.tilt_series_file,
         pixel_size=pixel_size,
         rotation_angle=nominal_rotation_angle,
         patch_size_xy=patch_size_xy,
         patch_overlap_percentage=patch_overlap_percentage,
     )
     run_batchruntomo(
-        tilt_series_file=tilt_series_file,
-        imod_directory=output_directory,
+        directory=output_directory,
+        basename=basename,
         directive=directive
     )
+    if not etomo_directory.contains_alignment_results:
+        raise RuntimeError(f'{basename} failed to align correctly.')
 
 
 def generate_patch_tracking_alignment_directive(
