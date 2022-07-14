@@ -1,23 +1,19 @@
 import numpy as np
 import mrcfile
 
-from yet_another_imod_wrapper.utils import (
-    find_optimal_power_of_2_binning_factor,
-    find_optimal_integer_binning_factor,
-    prepare_etomo_directory,
-    _get_batchruntomo_command
-)
+from yet_another_imod_wrapper import utils
+
 
 
 def test_find_optimal_power_of_2_binning_factor():
-    result = find_optimal_power_of_2_binning_factor(
+    result = utils.binning.find_optimal_power_of_2_binning_factor(
         src_pixel_size=2, target_pixel_size=10
     )
     assert result == 4
 
 
 def test_find_optimal_integer_binning_factor():
-    result = find_optimal_integer_binning_factor(
+    result = utils.binning.find_optimal_integer_binning_factor(
         src_pixel_size=3, target_pixel_size=10,
     )
     assert result == 3
@@ -28,7 +24,7 @@ def test_prepare_etomo_directory(tmp_path):
     basename = 'TS'
     tilt_series = np.arange(41 * 100).reshape((41, 10, 10))
     tilt_angles = np.arange(-60, 63, 3)
-    etomo_directory = prepare_etomo_directory(
+    etomo_directory = utils.batchruntomo.prepare_etomo_directory(
         tilt_series=tilt_series,
         tilt_angles=tilt_angles,
         basename=basename,
@@ -47,7 +43,7 @@ def test_prepare_etomo_directory(tmp_path):
 def test_get_batchruntomo_command(tmp_path):
     basename = 'base'
     directive_file = tmp_path / 'directive'
-    result = _get_batchruntomo_command(
+    result = utils.batchruntomo._get_batchruntomo_command(
         directory=tmp_path,
         basename=basename,
         directive_file=directive_file
