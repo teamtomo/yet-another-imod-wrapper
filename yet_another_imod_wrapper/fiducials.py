@@ -4,6 +4,7 @@ from typing import Dict, Any, List
 
 import numpy as np
 
+from .etomo_directory import EtomoDirectory
 from .utils.io import read_adoc
 from .constants import TARGET_PIXEL_SIZE_FOR_ALIGNMENT, BATCHRUNTOMO_CONFIG_FIDUCIALS
 from .utils.binning import find_optimal_power_of_2_binning_factor
@@ -19,7 +20,7 @@ def align_tilt_series_using_fiducials(
         nominal_rotation_angle: float,
         basename: str,
         output_directory: Path,
-):
+) -> EtomoDirectory:
     """Run fiducial based alignment in IMOD on a single tilt-series.
 
     Parameters
@@ -54,7 +55,7 @@ def align_tilt_series_using_fiducials(
     )
     if not etomo_directory.contains_alignment_results:
         raise RuntimeError(f'{basename} failed to align correctly.')
-
+    return etomo_directory
 
 def generate_alignment_directive(
         tilt_series_file: PathLike,
