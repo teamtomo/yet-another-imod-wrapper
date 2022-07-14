@@ -24,20 +24,6 @@ def prepare_etomo_directory(
     return directory
 
 
-def _get_batchruntomo_command(
-        directory: Path, basename: str, directive_file: Path
-) -> List[str]:
-    """Get batchruntomo command."""
-    command = [
-        'batchruntomo',
-        '-DirectiveFile', f'{directive_file}',
-        '-CurrentLocation', f'{directory}',
-        '-RootName', basename,
-        '-EndingStep', '6'
-    ]
-    return command
-
-
 def run_batchruntomo(
         directory: Path, basename: str, directive: Dict[str, str]
 ) -> None:
@@ -51,3 +37,17 @@ def run_batchruntomo(
             directive_file=directive_file
         )
         subprocess.run(batchruntomo_command)
+
+
+def _get_batchruntomo_command(
+        directory: Path, basename: str, directive_file: Path
+) -> List[str]:
+    """Get batchruntomo command."""
+    command = [
+        'batchruntomo',
+        '-DirectiveFile', f'{directive_file}',
+        '-CurrentLocation', f'{directory}',
+        '-RootName', basename,
+        '-EndingStep', '6'
+    ]
+    return command
