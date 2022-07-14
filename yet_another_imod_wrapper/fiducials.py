@@ -4,11 +4,10 @@ from typing import Dict, Any, List
 
 import numpy as np
 
-from .etomo_directory import EtomoDirectory
 from .utils.io import read_adoc
 from .constants import TARGET_PIXEL_SIZE_FOR_ALIGNMENT, BATCHRUNTOMO_CONFIG_FIDUCIALS
 from .utils.binning import find_optimal_power_of_2_binning_factor
-from .utils.batchruntomo import prepare_etomo_directory, run_batchruntomo
+from .utils.batchruntomo import prepare_etomo_directory, run_batchruntomo, EtomoDirectoryHandler
 from .utils.installation import check_imod_installation
 
 
@@ -20,7 +19,7 @@ def align_tilt_series_using_fiducials(
         nominal_rotation_angle: float,
         basename: str,
         output_directory: Path,
-) -> EtomoDirectory:
+) -> EtomoDirectoryHandler:
     """Run fiducial based alignment in IMOD on a single tilt-series.
 
     Parameters
