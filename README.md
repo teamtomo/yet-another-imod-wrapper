@@ -15,7 +15,6 @@ from yet_another_imod_wrapper import (
 )
 import mrcfile
 import numpy as np
-from pathlib import Path
 
 # load tilt series into (n, y, x) numpy array
 tilt_series = mrcfile.read('my_tilt_series.mrc')
@@ -28,7 +27,7 @@ align_tilt_series_using_fiducials(
     fiducial_size=10,
     nominal_rotation_angle=85,
     basename='my_tilt_series',
-    output_directory=Path('fiducials')
+    output_directory='fiducials'
 )
 
 # align using patch-tracking
@@ -39,7 +38,7 @@ align_tilt_series_using_patch_tracking(
     patch_size=1000,
     patch_overlap_percentage=33,
     basename='my_tilt_series',
-    output_directory=Path('patch_tracking')
+    output_directory='patch_tracking'
 )
 ```
 
