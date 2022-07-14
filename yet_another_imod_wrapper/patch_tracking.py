@@ -16,7 +16,7 @@ def align_tilt_series_using_patch_tracking(
         tilt_angles: Sequence[float],
         nominal_rotation_angle: float,
         pixel_size: float,
-        patch_size_xy: Tuple[int, int],
+        patch_size: float,
         patch_overlap_percentage: float,
         basename: str,
         output_directory: Path,
@@ -30,7 +30,7 @@ def align_tilt_series_using_patch_tracking(
     pixel_size: pixel size of the tilt-series in angstroms-per-pixel
     nominal_rotation_angle: initial estimate for the rotation angle of the tilt
         axis. https://bio3d.colorado.edu/imod/doc/tomoguide.html#UnknownAxisAngle
-    patch_size_xy: size of patches to be tracked in the unbinned tilt-series
+    patch_size: sidelength of patches to be tracked in angstroms.
     patch_overlap_percentage: overlap between patches in each direction.
         e.g. 33 for 33% overlap in each direction.
     basename: basename for IMOD files.
@@ -43,11 +43,12 @@ def align_tilt_series_using_patch_tracking(
         tilt_angles=tilt_angles,
         basename=basename,
     )
+    patch_size_px = int(patch_size / pixel_size)
     directive = generate_patch_tracking_alignment_directive(
         tilt_series_file=etomo_directory.tilt_series_file,
         pixel_size=pixel_size,
         rotation_angle=nominal_rotation_angle,
-        patch_size_xy=patch_size_xy,
+        patch_size_xy=(patch_size_px, patch_size_px),
         patch_overlap_percentage=patch_overlap_percentage,
     )
     run_batchruntomo(
