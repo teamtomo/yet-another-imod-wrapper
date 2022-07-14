@@ -1,4 +1,4 @@
 from . import installation
-from . import batchruntomo
+from . import etomo
 from . import binning
 from . import io
