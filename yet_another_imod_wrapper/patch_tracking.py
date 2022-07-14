@@ -4,6 +4,7 @@ from typing import Dict, Any, Tuple, Sequence
 
 import numpy as np
 
+from .etomo_directory import EtomoDirectory
 from .utils.io import read_adoc
 from .constants import TARGET_PIXEL_SIZE_FOR_ALIGNMENT, BATCHRUNTOMO_CONFIG_PATCH_TRACKING
 from .utils.installation import check_imod_installation
@@ -20,7 +21,7 @@ def align_tilt_series_using_patch_tracking(
         patch_overlap_percentage: float,
         basename: str,
         output_directory: Path,
-):
+) -> EtomoDirectory:
     """Run patch-tracking alignment in IMOD on a single tilt-series.
 
     Parameters
@@ -58,6 +59,7 @@ def align_tilt_series_using_patch_tracking(
     )
     if not etomo_directory.contains_alignment_results:
         raise RuntimeError(f'{basename} failed to align correctly.')
+    return etomo_directory
 
 
 def generate_patch_tracking_alignment_directive(
