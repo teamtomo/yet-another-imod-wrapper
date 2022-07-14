@@ -57,6 +57,7 @@ def align_tilt_series_using_fiducials(
         raise RuntimeError(f'{basename} failed to align correctly.')
     return etomo_directory
 
+
 def generate_alignment_directive(
         tilt_series_file: PathLike,
         pixel_size: float,
