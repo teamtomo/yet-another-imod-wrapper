@@ -37,6 +37,7 @@ def align_tilt_series_using_patch_tracking(
     output_directory: tilt-series directory for IMOD.
     """
     check_imod_installation()
+    output_directory = Path(output_directory)
     etomo_directory = prepare_etomo_directory(
         directory=output_directory,
         tilt_series=tilt_series,
