@@ -1,4 +1,7 @@
+import os
+
 import numpy as np
+from .io import read_xf
 
 
 class XF:
@@ -6,6 +9,10 @@ class XF:
 
     def __init__(self, xf: np.ndarray):
         self.xf_data = xf
+
+    @classmethod
+    def from_file(cls, filename: os.PathLike):
+        return cls(read_xf(filename))
 
     @property
     def shifts(self):
