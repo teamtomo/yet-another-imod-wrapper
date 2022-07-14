@@ -4,14 +4,11 @@ from typing import Dict, Any, List
 
 import numpy as np
 
-from .batchruntomo_config.io import read_adoc
+from .utils.io import read_adoc
 from .constants import TARGET_PIXEL_SIZE_FOR_ALIGNMENT, BATCHRUNTOMO_CONFIG_FIDUCIALS
-from .utils import (
-    find_optimal_power_of_2_binning_factor,
-    prepare_etomo_directory,
-    run_batchruntomo,
-    check_imod_installation
-)
+from .utils.binning import find_optimal_power_of_2_binning_factor
+from .utils.batchruntomo import prepare_etomo_directory, run_batchruntomo
+from .utils.installation import check_imod_installation
 
 
 def align_tilt_series_using_fiducials(
@@ -27,8 +24,7 @@ def align_tilt_series_using_fiducials(
 
     Parameters
     ----------
-    tilt_series: file containing tilt-series images.
-        File must be compatible with the version of IMOD installed.
+    tilt_series: (n, y, x) array of 2D tilt-images in a tilt-series.
     tilt_angles: nominal stage tilt-angles from the microscope.
     pixel_size: nominal pixel size in Angstroms per pixel.
     fiducial_size: approximate size of fiducials in nanometers.

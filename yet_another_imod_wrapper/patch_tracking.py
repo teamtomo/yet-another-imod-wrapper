@@ -4,14 +4,11 @@ from typing import Dict, Any, Tuple, Sequence
 
 import numpy as np
 
-from .batchruntomo_config.io import read_adoc
+from .utils.io import read_adoc
 from .constants import TARGET_PIXEL_SIZE_FOR_ALIGNMENT, BATCHRUNTOMO_CONFIG_PATCH_TRACKING
-from .utils import (
-    find_optimal_power_of_2_binning_factor,
-    prepare_etomo_directory,
-    run_batchruntomo,
-    check_imod_installation
-)
+from .utils.installation import check_imod_installation
+from .utils.binning import find_optimal_power_of_2_binning_factor
+from .utils.batchruntomo import prepare_etomo_directory, run_batchruntomo
 
 
 def align_tilt_series_using_patch_tracking(

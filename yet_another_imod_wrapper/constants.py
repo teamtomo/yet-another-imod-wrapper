@@ -1,6 +1,6 @@
-from pathlib import Path
+from pathlib import Path as _Path
 
-BATCHRUNTOMO_CONIFG_DIR = Path(__file__).parent / 'batchruntomo_config'
+BATCHRUNTOMO_CONIFG_DIR = _Path(__file__).parent / 'batchruntomo_config'
 BATCHRUNTOMO_CONFIG_FIDUCIALS = BATCHRUNTOMO_CONIFG_DIR / 'fiducials.adoc'
 BATCHRUNTOMO_CONFIG_PATCH_TRACKING = BATCHRUNTOMO_CONIFG_DIR / 'patch_tracking.adoc'
 
