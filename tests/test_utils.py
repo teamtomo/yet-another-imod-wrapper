@@ -23,7 +23,7 @@ def test_prepare_etomo_directory(tmp_path):
     basename = 'TS'
     tilt_series = np.arange(41 * 100).reshape((41, 10, 10))
     tilt_angles = np.arange(-60, 63, 3)
-    etomo_directory = utils.batchruntomo.prepare_etomo_directory(
+    etomo_directory = utils.etomo.prepare_etomo_directory(
         tilt_series=tilt_series,
         tilt_angles=tilt_angles,
         basename=basename,
@@ -42,7 +42,7 @@ def test_prepare_etomo_directory(tmp_path):
 def test_get_batchruntomo_command(tmp_path):
     basename = 'base'
     directive_file = tmp_path / 'directive'
-    result = utils.batchruntomo._get_batchruntomo_command(
+    result = utils.etomo._get_batchruntomo_command(
         directory=tmp_path,
         basename=basename,
         directive_file=directive_file
