@@ -6,8 +6,41 @@ from typing import Sequence, List, Dict
 import mrcfile
 import numpy as np
 
-from yet_another_imod_wrapper.utils.io import write_adoc
-from yet_another_imod_wrapper.etomo_directory import EtomoDirectory
+from .io import write_adoc
+
+
+class EtomoDirectoryHandler:
+    def __init__(self, basename: str, directory: Path):
+        self.directory: Path = directory
+        self.basename: str = basename
+
+    @property
+    def tilt_series_file(self) -> Path:
+        return self.directory / f'{self.basename}.mrc'
+
+    @property
+    def rawtlt_file(self) -> Path:
+        return self.directory / f'{self.basename}.rawtlt'
+
+    @property
+    def xf_file(self) -> Path:
+        return self.directory / f'{self.basename}.xf'
+
+    @property
+    def tlt_file(self) -> Path:
+        return self.directory / f'{self.basename}.tlt'
+
+    @property
+    def edf_file(self) -> Path:
+        return self.directory / f'{self.basename}.edf'
+
+    @property
+    def is_ready_for_alignment(self) -> bool:
+        return self.tilt_series_file.exists() and self.rawtlt_file.exists()
+
+    @property
+    def contains_alignment_results(self) -> bool:
+        return self.xf_file.exists() and self.tlt_file.exists()
 
 
 def prepare_etomo_directory(
@@ -15,10 +48,10 @@ def prepare_etomo_directory(
         tilt_series: np.ndarray,
         tilt_angles: Sequence[float],
         basename: str,
-) -> EtomoDirectory:
+) -> EtomoDirectoryHandler:
     """Prepare a directory for IMOD tilt-series alignment."""
     directory.mkdir(exist_ok=True, parents=True)
-    directory = EtomoDirectory(basename=basename, directory=directory)
+    directory = EtomoDirectoryHandler(basename=basename, directory=directory)
     mrcfile.write(str(directory.tilt_series_file), tilt_series.astype(np.float32))
     np.savetxt(directory.rawtlt_file, tilt_angles, fmt='%.2f', delimiter='')
     return directory
