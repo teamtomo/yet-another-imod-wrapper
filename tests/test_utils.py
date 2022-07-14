@@ -4,7 +4,6 @@ import mrcfile
 from yet_another_imod_wrapper import utils
 
 
-
 def test_find_optimal_power_of_2_binning_factor():
     result = utils.binning.find_optimal_power_of_2_binning_factor(
         src_pixel_size=2, target_pixel_size=10
