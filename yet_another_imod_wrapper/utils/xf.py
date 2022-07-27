@@ -51,7 +51,7 @@ class XF:
         Rotation center is in IMOD convention (N-1) / 2.
         """
         inverse_transformation_matrices = np.linalg.pinv(self.transformation_matrices)
-        return inverse_transformation_matrices @ self.shifts.reshape((-1, 2, 1))
+        return np.squeeze(inverse_transformation_matrices @ self.shifts.reshape((-1, 2, 1)))
 
     @property
     def specimen_shifts(self):
