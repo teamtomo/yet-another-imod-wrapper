@@ -69,7 +69,8 @@ def run_batchruntomo(
             basename=basename,
             directive_file=directive_file
         )
-        subprocess.run(batchruntomo_command)
+        with open(directory / 'log.txt', mode='w') as log:
+            subprocess.run(batchruntomo_command, stdout=log, stderr=log)
 
 
 def _get_batchruntomo_command(
