@@ -8,7 +8,7 @@ from .utils.io import read_adoc
 from .constants import TARGET_PIXEL_SIZE_FOR_ALIGNMENT, BATCHRUNTOMO_CONFIG_PATCH_TRACKING
 from .utils.installation import check_imod_installation
 from .utils.binning import find_optimal_power_of_2_binning_factor
-from .utils.etomo import prepare_etomo_directory, run_batchruntomo, EtomoDirectoryHandler
+from .utils.etomo import prepare_etomo_directory, run_batchruntomo, EtomoOutput
 
 
 def align_tilt_series_using_patch_tracking(
@@ -20,7 +20,7 @@ def align_tilt_series_using_patch_tracking(
         patch_overlap_percentage: float,
         basename: str,
         output_directory: Path,
-) -> EtomoDirectoryHandler:
+) -> EtomoOutput:
     """Run patch-tracking alignment in IMOD on a single tilt-series.
 
     Parameters
@@ -38,7 +38,7 @@ def align_tilt_series_using_patch_tracking(
     """
     check_imod_installation()
     output_directory = Path(output_directory)
-    etomo_directory = prepare_etomo_directory(
+    etomo_output = prepare_etomo_directory(
         directory=output_directory,
         tilt_series=tilt_series,
         tilt_angles=tilt_angles,
@@ -46,7 +46,7 @@ def align_tilt_series_using_patch_tracking(
     )
     patch_size_px = int(patch_size / pixel_size)
     directive = generate_patch_tracking_alignment_directive(
-        tilt_series_file=etomo_directory.tilt_series_file,
+        tilt_series_file=etomo_output.tilt_series_file,
         pixel_size=pixel_size,
         rotation_angle=nominal_rotation_angle,
         patch_size_xy=(patch_size_px, patch_size_px),
@@ -57,9 +57,9 @@ def align_tilt_series_using_patch_tracking(
         basename=basename,
         directive=directive
     )
-    if not etomo_directory.contains_alignment_results:
+    if etomo_output.contains_alignment_results is False:
         raise RuntimeError(f'{basename} failed to align correctly.')
-    return etomo_directory
+    return etomo_output
 
 
 def generate_patch_tracking_alignment_directive(
