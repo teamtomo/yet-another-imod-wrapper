@@ -53,7 +53,7 @@ def prepare_etomo_directory(
     directory.mkdir(exist_ok=True, parents=True)
     output = EtomoOutput(basename=basename, directory=directory)
     tilt_series_file = output.tilt_series_file
-    data_on_disk_shape = []
+    data_on_disk_shape = None
     if tilt_series_file.exists():
         with mrcfile.open(tilt_series_file, header_only=True) as mrc:
             data_on_disk_shape = (mrc.header.nz, mrc.header.ny, mrc.header.nx)
