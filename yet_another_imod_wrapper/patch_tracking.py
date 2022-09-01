@@ -20,6 +20,7 @@ def align_tilt_series_using_patch_tracking(
         patch_overlap_percentage: float,
         basename: str,
         output_directory: Path,
+        skip_if_completed: bool = False
 ) -> EtomoOutput:
     """Run patch-tracking alignment in IMOD on a single tilt-series.
 
@@ -34,6 +35,7 @@ def align_tilt_series_using_patch_tracking(
     patch_overlap_percentage: overlap between patches in each direction.
         e.g. 33 for 33% overlap in each direction.
     basename: basename for IMOD files.
+    skip_if_completed: skip alignment if previous results found.
     output_directory: tilt-series directory for IMOD.
     """
     check_imod_installation()
@@ -52,13 +54,14 @@ def align_tilt_series_using_patch_tracking(
         patch_size_xy=(patch_size_px, patch_size_px),
         patch_overlap_percentage=patch_overlap_percentage,
     )
-    run_batchruntomo(
-        directory=output_directory,
-        basename=basename,
-        directive=directive
-    )
-    if etomo_output.contains_alignment_results is False:
-        raise RuntimeError(f'{basename} failed to align correctly.')
+    if etomo_output.contains_alignment_results is False or skip_if_completed is False:
+        run_batchruntomo(
+            directory=output_directory,
+            basename=basename,
+            directive=directive,
+        )
+        if etomo_output.contains_alignment_results is False:
+            raise RuntimeError(f'{basename} failed to align correctly.')
     return etomo_output
 
 
