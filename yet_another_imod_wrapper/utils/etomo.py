@@ -52,7 +52,17 @@ def prepare_etomo_directory(
     """Prepare a directory for IMOD tilt-series alignment."""
     directory.mkdir(exist_ok=True, parents=True)
     output = EtomoOutput(basename=basename, directory=directory)
-    mrcfile.write(str(output.tilt_series_file), tilt_series.astype(np.float32))
+    tilt_series_file = output.tilt_series_file
+    data_on_disk_shape = []
+    if tilt_series_file.exists():
+        with mrcfile.open(tilt_series_file, header_only=True) as mrc:
+            data_on_disk_shape = (mrc.header.nz, mrc.header.ny, mrc.header.nx)
+    if not np.array_equal(tilt_series.shape, data_on_disk_shape):
+        mrcfile.write(
+            tilt_series_file,
+            tilt_series.astype(np.float32),
+            overwrite=True
+        )
     np.savetxt(output.rawtlt_file, tilt_angles, fmt='%.2f', delimiter='')
     return output
 

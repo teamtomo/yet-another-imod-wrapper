@@ -19,6 +19,7 @@ def align_tilt_series_using_fiducials(
         nominal_rotation_angle: float,
         basename: str,
         output_directory: Path,
+        skip_if_completed: bool = False
 ) -> EtomoOutput:
     """Run fiducial based alignment in IMOD on a single tilt-series.
 
@@ -31,6 +32,7 @@ def align_tilt_series_using_fiducials(
     nominal_rotation_angle: initial estimate for the rotation angle of the tilt
         axis. https://bio3d.colorado.edu/imod/doc/tomoguide.html#UnknownAxisAngle
     basename: basename for files in Etomo directory.
+    skip_if_completed: skip alignment if previous results found.
     output_directory: tilt-series directory for IMOD.
     """
     check_imod_installation()
@@ -48,13 +50,14 @@ def align_tilt_series_using_fiducials(
         fiducial_size=fiducial_size,
         rotation_angle=nominal_rotation_angle
     )
-    run_batchruntomo(
-        directory=output_directory,
-        basename=basename,
-        directive=directive
-    )
-    if etomo_output.contains_alignment_results is False:
-        raise RuntimeError(f'{basename} failed to align correctly.')
+    if etomo_output.contains_alignment_results is False or skip_if_completed is False:
+        run_batchruntomo(
+            directory=output_directory,
+            basename=basename,
+            directive=directive
+        )
+        if etomo_output.contains_alignment_results is False:
+            raise RuntimeError(f'{basename} failed to align correctly.')
     return etomo_output
 
 

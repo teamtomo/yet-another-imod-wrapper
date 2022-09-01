@@ -27,7 +27,8 @@ align_tilt_series_using_fiducials(
     fiducial_size=10,
     nominal_rotation_angle=85,
     basename='my_tilt_series',
-    output_directory='fiducials'
+    output_directory='fiducials',
+    skip_if_completed=False
 )
 
 # align using patch-tracking
@@ -38,7 +39,8 @@ align_tilt_series_using_patch_tracking(
     patch_size=1000,
     patch_overlap_percentage=33,
     basename='my_tilt_series',
-    output_directory='patch_tracking'
+    output_directory='patch_tracking',
+    skip_if_completed=False
 )
 ```
 
