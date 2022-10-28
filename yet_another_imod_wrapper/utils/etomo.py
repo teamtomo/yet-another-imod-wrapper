@@ -1,7 +1,7 @@
 import subprocess
 import tempfile
 from pathlib import Path
-from typing import Sequence, List, Dict
+from typing import Sequence, List, Dict, Union
 
 import mrcfile
 import numpy as np
@@ -33,6 +33,10 @@ class EtomoOutput:
     @property
     def edf_file(self) -> Path:
         return self.directory / f'{self.basename}.edf'
+
+    @property
+    def align_log_file(self) -> Path:
+        return self.directory / 'align.log'
 
     @property
     def is_ready_for_alignment(self) -> bool:
@@ -95,3 +99,13 @@ def _get_batchruntomo_command(
         '-EndingStep', '6'
     ]
     return command
+
+
+def get_tilt_angle_offset(align_log_file: Path) -> Union[float, None]:
+    """Get the total tilt angle offset from an align.log file."""
+    with open(align_log_file, mode='r') as file:
+        for line in file:
+            if 'Total tilt angle change =' in line:
+                return float(line.strip().split('=')[-1])
+    return None
+
