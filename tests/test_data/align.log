@@ -1,0 +1,306 @@
+
+*** Entries to program tiltalign ***
+  ModelFile = 220728_TS_01.fid
+  ImageFile = 220728_TS_01_preali.mrc
+  UnbinnedPixelSize = 0.135
+  ImagesAreBinned = 8
+  OutputModelFile = 220728_TS_01.3dmod
+  OutputResidualFile = 220728_TS_01.resid
+  OutputFilledInModel = 220728_TS_01_nogaps.fid
+  OutputFidXYZFile = 220728_TS_01fid.xyz
+  OutputTiltFile = 220728_TS_01.tlt
+  OutputXAxisTiltFile = 220728_TS_01.xtilt
+  OutputTransformFile = 220728_TS_01.tltxf
+  RotationAngle = 85.0
+  NoSeparateTiltGroups = 1
+  TiltFile = 220728_TS_01.rawtlt
+  AngleOffset = 9.02
+  BeamTiltOption = 2
+  RotOption = -1
+  RotDefaultGrouping = 5
+  TiltOption = 0
+  TiltDefaultGrouping = 5
+  MagReferenceView = 1
+  MagOption = 0
+  MagDefaultGrouping = 4
+  XStretchOption = 0
+  XStretchDefaultGrouping = 7
+  SkewOption = 0
+  SkewDefaultGrouping = 11
+  XTiltOption = 0
+  XTiltDefaultGrouping = 2000
+  ResidualReportCriterion = 3.0
+  SurfacesToAnalyze = 1
+  MetroFactor = .25
+  MaximumCycles = 1000
+  AxisZShift = 0.
+  ShiftZFromOriginal = 1
+  RobustFitting = 1
+  WeightWholeTracks = 1
+  KFactorScaling = 1.
+  CrossValidate = 1
+  LocalAlignments = 0
+  OutputLocalFile = 220728_TS_01local.xf
+  TargetPatchSizeXandY = 700,700
+  MinSizeOrOverlapXandY = 0.5,0.5
+  MinFidsTotalAndEachSurface = 10,0
+  FixXYZCoordinates = 0
+  LocalOutputOptions = 1,0,1
+  LocalRotOption = 3
+  LocalRotDefaultGrouping = 6
+  LocalTiltOption = 5
+  LocalTiltDefaultGrouping = 6
+  LocalMagReferenceView = 1
+  LocalMagOption = 3
+  LocalMagDefaultGrouping = 7
+  LocalXStretchOption = 0
+  LocalXStretchDefaultGrouping = 7
+  LocalSkewOption = 0
+  LocalSkewDefaultGrouping = 11
+*** End of entries ***
+
+
+Opened NEW file: 220728_TS_01.tlt
+
+Opened NEW file: 220728_TS_01.xtilt
+
+Opened NEW file: 220728_TS_01.tltxf
+
+Opened OLD file: 220728_TS_01.rawtlt
+
+                        Variable mappings 
+ View  Rotation     Tilt  (+ incr.)      Mag       Comp      Dmag      Skew
+   2   rot    2     fixed               fixed      fixed      fixed      fixed 
+   3   rot    2     fixed               fixed      fixed      fixed      fixed 
+   4   rot    2     fixed               fixed      fixed      fixed      fixed 
+   5   rot    2     fixed               fixed      fixed      fixed      fixed 
+   6   rot    2     fixed               fixed      fixed      fixed      fixed 
+   7   rot    2     fixed               fixed      fixed      fixed      fixed 
+   8   rot    2     fixed               fixed      fixed      fixed      fixed 
+   9   rot    2     fixed               fixed      fixed      fixed      fixed 
+  10   rot    2     fixed               fixed      fixed      fixed      fixed 
+  11   rot    2     fixed               fixed      fixed      fixed      fixed 
+  12   rot    2     fixed               fixed      fixed      fixed      fixed 
+  13   rot    2     fixed               fixed      fixed      fixed      fixed 
+  14   rot    2     fixed               fixed      fixed      fixed      fixed 
+  15   rot    2     fixed               fixed      fixed      fixed      fixed 
+  16   rot    2     fixed               fixed      fixed      fixed      fixed 
+  17   rot    2     fixed               fixed      fixed      fixed      fixed 
+  18   rot    2     fixed               fixed      fixed      fixed      fixed 
+  19   rot    2     fixed               fixed      fixed      fixed      fixed 
+  20   rot    2     fixed               fixed      fixed      fixed      fixed 
+  21   rot    2     fixed               fixed      fixed      fixed      fixed 
+  22   rot    2     fixed               fixed      fixed      fixed      fixed 
+  23   rot    2     fixed               fixed      fixed      fixed      fixed 
+  24   rot    2     fixed               fixed      fixed      fixed      fixed 
+  25   rot    2     fixed               fixed      fixed      fixed      fixed 
+  26   rot    2     fixed               fixed      fixed      fixed      fixed 
+  27   rot    2     fixed               fixed      fixed      fixed      fixed 
+  28   rot    2     fixed               fixed      fixed      fixed      fixed 
+  29   rot    2     fixed               fixed      fixed      fixed      fixed 
+  30   rot    2     fixed               fixed      fixed      fixed      fixed 
+  31   rot    2     fixed               fixed      fixed      fixed      fixed 
+  32   rot    2     fixed               fixed      fixed      fixed      fixed 
+  33   rot    2     fixed               fixed      fixed      fixed      fixed 
+  34   rot    2     fixed               fixed      fixed      fixed      fixed 
+  35   rot    2     fixed               fixed      fixed      fixed      fixed 
+  36   rot    2     fixed               fixed      fixed      fixed      fixed 
+  37   rot    2     fixed               fixed      fixed      fixed      fixed 
+  38   rot    2     fixed               fixed      fixed      fixed      fixed 
+  39   rot    2     fixed               fixed      fixed      fixed      fixed 
+  40   rot    2     fixed               fixed      fixed      fixed      fixed 
+  41   rot    2     fixed               fixed      fixed      fixed      fixed 
+
+Option to weight whole contours is being ignored for non-patch track model
+ Variable Metric minimization                  Initial F:         0.560490
+                                               Cycle   10         0.551169
+ For beam tilt =  0.00,   14 cycles,           final   F :        0.551169
+
+ Variable Metric minimization                  Initial F:         1.848124
+                                               Cycle   10         1.315832
+                                               Cycle   20         1.308365
+                                               Cycle   30         1.308250
+ For beam tilt = -1.00,   35 cycles,           final   F :        1.308246
+
+ Variable Metric minimization                  Initial F:         1.659767
+                                               Cycle   10         1.040285
+                                               Cycle   20         1.030785
+                                               Cycle   30         1.030385
+ For beam tilt =  1.00,   30 cycles,           final   F :        1.030385
+
+ Variable Metric minimization                  Initial F:         0.913316
+                                               Cycle   10         0.644231
+                                               Cycle   20         0.641671
+ For beam tilt =  0.50,   22 cycles,           final   F :        0.641656
+
+ Variable Metric minimization                  Initial F:         1.078981
+                                               Cycle   10         0.860571
+                                               Cycle   20         0.858673
+ For beam tilt = -0.50,   24 cycles,           final   F :        0.858666
+
+ Variable Metric minimization                  Initial F:         0.628603
+                                               Cycle   10         0.539312
+                                               Cycle   20         0.538553
+ For beam tilt =  0.25,   29 cycles,           final   F :        0.538535
+ For beam tilt =  0.02,   12 cycles,           final   F :        0.545610
+ For beam tilt =  0.04,   12 cycles,           final   F :        0.540810
+ For beam tilt =  0.06,   15 cycles,           final   F :        0.536777
+ For beam tilt =  0.08,   12 cycles,           final   F :        0.533528
+ For beam tilt =  0.10,   12 cycles,           final   F :        0.531078
+ For beam tilt =  0.12,   13 cycles,           final   F :        0.529434
+ For beam tilt =  0.14,   17 cycles,           final   F :        0.528578
+ For beam tilt =  0.16,   18 cycles,           final   F :        0.528564
+ For beam tilt =  0.18,   18 cycles,           final   F :        0.529376
+ For beam tilt =  0.20,   19 cycles,           final   F :        0.530989
+ For beam tilt =  0.22,   26 cycles,           final   F :        0.533413
+ For beam tilt =  0.24,   25 cycles,           final   F :        0.536634
+ For beam tilt =  0.26,   23 cycles,           final   F :        0.540649
+ For beam tilt =  0.28,   31 cycles,           final   F :        0.545415
+ For beam tilt =  0.30,   28 cycles,           final   F :        0.550931
+ For beam tilt =  0.32,   22 cycles,           final   F :        0.557176
+ For beam tilt =  0.34,   23 cycles,           final   F :        0.564118
+ For beam tilt =  0.36,   25 cycles,           final   F :        0.571735
+ For beam tilt =  0.38,   22 cycles,           final   F :        0.579998
+ For beam tilt =  0.40,   22 cycles,           final   F :        0.588883
+ For beam tilt =  0.42,   24 cycles,           final   F :        0.598360
+ For beam tilt =  0.44,   22 cycles,           final   F :        0.608405
+ For beam tilt =  0.46,   27 cycles,           final   F :        0.618986
+ For beam tilt =  0.48,   22 cycles,           final   F :        0.630078
+
+ Solved beam tilt =  0.15,   17 cycles,        Final   F :        0.528471
+
+Starting robust fitting with    5 weight groups:   5 view groups in  1 rings
+ Total cycles for robust fitting:   89         Final   F :        0.289743
+ Final mean and max weight change 0.0007927.4 0.0031057.4
+   627 weights:   18 are 0,   26 are < .1,   36 are < .2,    57 ( 9.1%) are < .5
+
+  40 views,    1 geometric variables,   16 3-D points,   627 projection points
+  Ratio of total measured values to all unknowns =  1254/ 124 =  10.11
+
+Beam tilt angle is    0.15 degrees
+
+ At minimum tilt, rotation angle is   85.24
+
+ view   rotation    tilt    deltilt     mag      dmag      skew    resid-nm
+   2      85.2     -48.0      0.00    1.0000    0.0000      0.00      0.77
+   3      85.2     -45.0      0.00    1.0000    0.0000      0.00      0.50
+   4      85.2     -42.0      0.00    1.0000    0.0000      0.00      0.52
+   5      85.2     -39.0      0.00    1.0000    0.0000      0.00      0.51
+   6      85.2     -36.0      0.00    1.0000    0.0000      0.00      0.56
+   7      85.2     -33.0      0.00    1.0000    0.0000      0.00      0.20
+   8      85.2     -30.0      0.00    1.0000    0.0000      0.00      0.24
+   9      85.2     -27.0      0.00    1.0000    0.0000      0.00      0.21
+  10      85.2     -24.0      0.00    1.0000    0.0000      0.00      0.26
+  11      85.2     -21.0      0.00    1.0000    0.0000      0.00      0.26
+  12      85.2     -18.0      0.00    1.0000    0.0000      0.00      0.26
+  13      85.2     -15.0      0.00    1.0000    0.0000      0.00      0.29
+  14      85.2     -12.0      0.00    1.0000    0.0000      0.00      0.25
+  15      85.2      -9.0      0.00    1.0000    0.0000      0.00      0.36
+  16      85.2      -6.0      0.00    1.0000    0.0000      0.00      0.55
+  17      85.2      -3.0      0.00    1.0000    0.0000      0.00      0.34
+  18      85.2       0.0     -0.00    1.0000    0.0000      0.00      0.30
+  19      85.2       3.0     -0.00    1.0000    0.0000      0.00      1.24
+  20      85.2       6.0     -0.00    1.0000    0.0000      0.00      0.40
+  21      85.2       9.0     -0.00    1.0000    0.0000      0.00      0.35
+  22      85.2      12.0     -0.00    1.0000    0.0000      0.00      0.39
+  23      85.2      15.0     -0.00    1.0000    0.0000      0.00      0.39
+  24      85.2      18.0     -0.00    1.0000    0.0000      0.00      0.26
+  25      85.2      21.0     -0.00    1.0000    0.0000      0.00      0.25
+  26      85.2      24.0     -0.00    1.0000    0.0000      0.00      0.25
+  27      85.2      27.0     -0.00    1.0000    0.0000      0.00      0.21
+  28      85.2      30.0     -0.00    1.0000    0.0000      0.00      0.21
+  29      85.2      33.0     -0.00    1.0000    0.0000      0.00      0.26
+  30      85.2      36.0     -0.00    1.0000    0.0000      0.00      0.25
+  31      85.2      39.0     -0.00    1.0000    0.0000      0.00      0.29
+  32      85.2      42.0     -0.00    1.0000    0.0000      0.00      0.32
+  33      85.2      45.0     -0.00    1.0000    0.0000      0.00      0.31
+  34      85.2      48.0     -0.00    1.0000    0.0000      0.00      0.22
+  35      85.2      51.0     -0.00    1.0000    0.0000      0.00      0.22
+  36      85.2      54.0     -0.00    1.0000    0.0000      0.00      0.21
+  37      85.2      57.0     -0.00    1.0000    0.0000      0.00      0.34
+  38      85.2      60.0     -0.00    1.0000    0.0000      0.00      0.42
+  39      85.2      63.0     -0.00    1.0000    0.0000      0.00      0.39
+  40      85.2      66.0     -0.00    1.0000    0.0000      0.00      0.41
+  41      85.2      69.0     -0.00    1.0000    0.0000      0.00      0.42
+
+
+                     3-D point coordinates (with centroid zero)
+   #       X         Y         Z      obj  cont  resid-nm
+   1   -123.74    157.72     32.66      1    1      0.2890
+   2    -67.01    179.15     44.18      1    2      0.3956
+   3   -158.18     12.90      2.98      1    3      0.3002
+   4   -100.43     -7.76    -69.75      1    4      0.3686
+   5   -127.53    -37.66    -47.35      1    5      0.2707
+   6    -75.10   -161.07     26.55      1    6      0.2785
+   7    -39.29   -104.28    -68.70      1    7      0.3200
+   8   -113.20   -156.72     30.36      1    8      0.2200
+   9    -66.76   -132.87     50.00      1    9      0.4105
+  10    146.29     53.87     29.72      1   10      0.2573
+  11     68.90    154.97    -39.07      1   11      0.2661
+  12     86.49    218.20     67.85      1   12      0.8186
+  13    131.19     81.22    -29.46      1   13      0.4855
+  14     81.34    -67.79     -8.68      1   14      0.3135
+  15    129.38    -10.68      2.44      1   15      0.3344
+  16    227.65   -179.18    -23.73      1   16      0.5846
+
+ Midpoint of Z range relative to centroid in Z:   -0.95
+
+Opened NEW file: 220728_TS_01.resid
+
+ Residual error mean and sd:     0.360   0.457 nm
+ Residual error weighted mean:   0.289         nm
+
+         Projection points with large residuals (in pixels)
+ obj  cont  view   index coordinates      residuals        # of
+   #     #     #      X         Y        X        Y        S.D.   Weights
+   1    12    19     23.32    367.14    -2.56    -7.17    17.18   0.0000
+   1    12    16     21.76    339.51    -2.48     1.83     6.48   0.0000
+   1    13     4    154.15    333.52     1.81     1.86     5.34   0.0000
+   1     2     2     38.96    142.98     2.23     0.83     4.83   0.0000
+   1    13     5    154.25    342.95     2.07    -1.09     4.73   0.0000
+   1     9     6    354.17    121.88    -1.14     1.47     3.61   0.0000
+   1    12    15     16.73    334.50     1.69     0.09     3.21   0.0000
+   1     9    19    357.17    175.93     0.71     1.54     3.21   0.0000
+
+Opened NEW file: 220728_TS_01fid.xyz
+
+ SURFACE ANALYSIS:
+
+ The following parameters are appropriate if fiducials are NOT on two surfaces:
+
+ Fit of one plane to all fiducials:
+ # of points =               16
+ Mean residual =          33.85
+ Adjusted slope =       -0.0174
+ X axis tilt needed =     -4.46
+ Incremental tilt angle change =   1.00
+ Total tilt angle change =        10.02
+ 
+ Unbinned thickness needed to contain centers of all fiducials =        1041
+ Incremental unbinned shift needed to center range of fiducials in Z =   340.6
+ Total unbinned shift needed to center range of fiducials in Z =         340.6
+
+Running 83 searches with points left out
+
+ Global non-robust leave-out error (2942 pts): 0.4616 nm  weighted 0.2839 nm
+ Global     robust leave-out error (2942 pts): 0.4656 nm  weighted 0.2826 nm
+        Benefit from robust fitting: unweighted -0.0040   weighted 0.0013 nm
+
+*** Entries to program xfproduct ***
+  InputFile1 = 220728_TS_01.prexg
+  InputFile2 = 220728_TS_01.tltxf
+  OutputFile = 220728_TS_01_fid.xf
+  ScaleShifts = 1,8
+*** End of entries ***
+
+
+ FORMATTED  ro  file opened: /cephfs/aburt/processing/HIV-5TS-rln41-220728/AlignTiltSeries/job004/external/220728_TS_01/220728_TS_01.prexg
+
+ FORMATTED  ro  file opened: /cephfs/aburt/processing/HIV-5TS-rln41-220728/AlignTiltSeries/job004/external/220728_TS_01/220728_TS_01.tltxf
+          41  transforms in first file
+          41  transforms in second file
+
+ FORMATTED  new  file opened: /cephfs/aburt/processing/HIV-5TS-rln41-220728/AlignTiltSeries/job004/external/220728_TS_01/220728_TS_01_fid.xf
+          41  new transforms written
+SUCCESSFULLY COMPLETED
+CHUNK DONE

@@ -54,3 +54,9 @@ def test_get_batchruntomo_command(tmp_path):
         '-RootName', basename,
         '-EndingStep', '6'
     ]
+
+
+def test_get_tilt_angle_offset(align_log_file):
+    """Test get tilt_angle_offset function."""
+    result = utils.etomo.get_tilt_angle_offset(align_log_file)
+    assert result == 10.02
