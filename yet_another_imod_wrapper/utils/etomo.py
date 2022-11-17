@@ -109,3 +109,14 @@ def get_tilt_angle_offset(align_log_file: Path) -> Union[float, None]:
                 return float(line.strip().split('=')[-1])
     return None
 
+
+def get_input_tilt_axis_rotation_angle(align_log_file: Path) -> Union[float, None]:
+    """Get the input rotation angle from an align.log file.
+
+    This is useful when determining the absolute rotation angle
+    from the rotation matrix in a .xf file.
+    """
+    with open(align_log_file, mode='r') as file:
+        for line in file:
+            if 'RotationAngle =' in line:
+                return float(line.strip().split('=')[-1])
