@@ -66,3 +66,25 @@ def test_get_input_rotation_angle(align_log_file):
     """Test getting an initial tilt-angle from align.log file."""
     result = utils.etomo.get_input_tilt_axis_rotation_angle(align_log_file)
     assert result == 85
+
+
+def test_read_xf(xf_file):
+    """test xf reading."""
+    result = utils.io.read_xf(xf_file)
+    assert result.shape == (41, 6)
+
+
+def test_xf_in_plane_flipping_logic(xf_file):
+    """test logic for getting correct in plane rotation angle."""
+    initial_in_plane = 85
+    xf = utils.xf.XF.from_file(xf_file, initial_tilt_axis_rotation_angle=initial_in_plane)
+    average_difference = np.abs(xf.in_plane_rotations - initial_in_plane).mean()
+    average_flipped_difference = np.abs(xf.in_plane_rotations - (-1 * initial_in_plane)).mean()
+    assert average_difference < average_flipped_difference
+
+    initial_in_plane = -85
+    xf = utils.xf.XF.from_file(xf_file, initial_tilt_axis_rotation_angle=initial_in_plane)
+    average_difference = np.abs(xf.in_plane_rotations - initial_in_plane).mean()
+    average_flipped_difference = np.abs(xf.in_plane_rotations - (-1 * initial_in_plane)).mean()
+    assert average_difference < average_flipped_difference
+
