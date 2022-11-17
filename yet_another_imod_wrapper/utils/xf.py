@@ -1,4 +1,6 @@
 import os
+from typing import Optional
+from warnings import warn
 
 import numpy as np
 from .io import read_xf
@@ -7,12 +9,21 @@ from .io import read_xf
 class XF:
     """Convenient retrieval of properties from IMOD xf data."""
 
-    def __init__(self, xf: np.ndarray):
+    def __init__(
+        self,
+        xf: np.ndarray,
+        initial_tilt_axis_rotation_angle: Optional[float] = None
+    ):
         self.xf_data = xf
+        self.initial_tilt_axis_rotation_angle = initial_tilt_axis_rotation_angle
 
     @classmethod
-    def from_file(cls, filename: os.PathLike):
-        return cls(read_xf(filename))
+    def from_file(
+        cls,
+        filename: os.PathLike,
+        initial_tilt_axis_rotation_angle: float = None
+    ):
+        return cls(read_xf(filename), initial_tilt_axis_rotation_angle)
 
     @property
     def shifts(self):
@@ -42,7 +53,20 @@ class XF:
         that the transformation in the xf file is a simple 2D rotation.
         """
         cos_theta = self.transformation_matrices[:, 0, 0]
-        return np.rad2deg(np.arccos(cos_theta))
+        theta = np.rad2deg(np.arccos(cos_theta))
+        if self.initial_tilt_axis_rotation_angle is None:
+            warn(
+                'no initial value provided for tilt-axis angle was \
+                provided and there are multiple valid solutions  \
+                for the requested in-plane rotation angle.'
+            )
+        else:
+            initial_theta = self.initial_tilt_axis_rotation_angle
+            difference = np.abs(initial_theta - theta).sum()
+            flipped_difference = np.abs((-1 * initial_theta) - theta).sum()
+            if flipped_difference < difference:
+                theta = -1 * theta
+        return theta
 
     @property
     def image_shifts(self):
