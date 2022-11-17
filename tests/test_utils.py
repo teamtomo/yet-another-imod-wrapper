@@ -64,5 +64,5 @@ def test_get_tilt_angle_offset(align_log_file):
 
 def test_get_input_rotation_angle(align_log_file):
     """Test getting an initial tilt-angle from align.log file."""
-    result = utils.etomo.get_input_rotation_angle(align_log_file)
+    result = utils.etomo.get_input_tilt_axis_rotation_angle(align_log_file)
     assert result == 85
