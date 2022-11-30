@@ -64,8 +64,8 @@ def align_tilt_series_using_patch_tracking(
             if etomo_output.contains_alignment_results is False:
                 raise RuntimeError
         except:
-            print((f'RuntimeError: {basename} failed to align correctly.')
-	    pass
+            print(f'RuntimeError: {basename} failed to align correctly.')
+            pass
     return etomo_output
 
 
