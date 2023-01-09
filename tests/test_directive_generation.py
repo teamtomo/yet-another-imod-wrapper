@@ -1,11 +1,11 @@
 from pathlib import Path
 
-from yet_another_imod_wrapper.fiducials import generate_alignment_directive
-from yet_another_imod_wrapper.patch_tracking import generate_patch_tracking_alignment_directive
-
 
 def test_patch_tracking_directive_generation():
     """Check that patch tracking directive is properly generated."""
+    from yet_another_imod_wrapper.patch_tracking import \
+        generate_patch_tracking_alignment_directive
+
     directive = generate_patch_tracking_alignment_directive(
         tilt_series_file=Path('test.mrc'),
         pixel_size=1.05,
@@ -51,7 +51,9 @@ def test_patch_tracking_directive_generation():
 
 def test_fiducial_directive_generation():
     """Check that fiducial based alignment directive is properly generated."""
-    directive = generate_alignment_directive(
+    from yet_another_imod_wrapper.fiducials import generate_fiducial_based_alignment_directive
+
+    directive = generate_fiducial_based_alignment_directive(
         tilt_series_file=Path('test.mrc'),
         pixel_size=1.05,
         fiducial_size=10,

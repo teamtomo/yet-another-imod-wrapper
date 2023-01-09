@@ -44,7 +44,7 @@ def align_tilt_series_using_fiducials(
         basename=basename,
 
     )
-    directive = generate_alignment_directive(
+    directive = generate_fiducial_based_alignment_directive(
         tilt_series_file=etomo_output.tilt_series_file,
         pixel_size=pixel_size,
         fiducial_size=fiducial_size,
@@ -61,7 +61,7 @@ def align_tilt_series_using_fiducials(
     return etomo_output
 
 
-def generate_alignment_directive(
+def generate_fiducial_based_alignment_directive(
         tilt_series_file: PathLike,
         pixel_size: float,
         fiducial_size: float,
