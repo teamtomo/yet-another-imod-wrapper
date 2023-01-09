@@ -14,18 +14,21 @@ cli = typer.Typer(add_completion=False, no_args_is_help=True)
 
 @cli.command(name='fiducials')
 def fiducials(
-    tilt_series: Path = typer.Option(..., help='file containing tilt-series in MRC '
-                                               'format.'),
-    tilt_angles: Path = typer.Option(..., help='text file containing tilt-angles, '
-                                               'one per line.'),
+    tilt_series: Path = typer.Option(
+        ..., help='file containing tilt-series in MRC format.'
+    ),
+    tilt_angles: Path = typer.Option(
+        ..., help='text file containing tilt-angles, one per line.'
+    ),
     output_directory: Path = typer.Option(..., help='directory for IMOD output.'),
     pixel_size: float = typer.Option(..., help='pixel spacing in Ångstroms.'),
     fiducial_size: float = typer.Option(..., help='fiducial diameter in nanometers.'),
     nominal_rotation_angle: float = typer.Option(
         ..., help='in-plane rotation of tilt-axis away from the Y-axis, CCW positive.'
     ),
-    basename: Optional[str] = typer.Option(None, help='basename for files in output '
-                                                      'directory.')
+    basename: Optional[str] = typer.Option(
+        default=None, help='basename for files in output directory.'
+    )
 
 ):
     basename = tilt_series.stem if basename is None else basename
@@ -40,4 +43,3 @@ def fiducials(
         nominal_rotation_angle=nominal_rotation_angle,
         basename=basename,
     )
-
