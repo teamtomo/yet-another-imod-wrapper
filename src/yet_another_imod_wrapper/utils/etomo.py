@@ -10,6 +10,10 @@ from .io import write_adoc
 
 
 class EtomoOutput:
+    """Convenient retrieval of outputs from an Etomo alignment project.
+
+    For details see the source code.
+    """
     def __init__(self, basename: str, directory: Path):
         self.directory: Path = directory
         self.basename: str = basename

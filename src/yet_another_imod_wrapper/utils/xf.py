@@ -7,7 +7,22 @@ from .io import read_xf
 
 
 class XF:
-    """Convenient retrieval of properties from IMOD xf data."""
+    """Convenient retrieval of properties from IMOD xf data.
+
+    An xf file contains one line with six numbers per image in the tilt-series,
+    each specifying a linear transformation:
+
+        A11 A12 A21 A22 DX DY
+
+    where the coordinate `(X, Y)` is transformed to `(X', Y')` by:
+
+        X' = A11 * X + A12 * Y + DX
+        Y' = A21 * X + A22 * Y + DY
+
+    The rotation center in IMOD is at `(N-1) / 2` where `N` is the
+    number of elements in each dimension. This calculates a 0-indexed
+    coordinate.
+    """
 
     def __init__(
         self,
@@ -26,31 +41,23 @@ class XF:
         return cls(read_xf(filename), initial_tilt_axis_rotation_angle)
 
     @property
-    def shifts(self):
-        """Post-transformation shifts directly from xf data.
+    def shifts(self) -> np.ndarray:
+        """`(n, 2)` array of `(DX, DY)` from xf data.
 
-        Output is an (n, 2) numpy array of XY shifts. Shifts in an xf file are
-        applied after rotations. IMOD xf files contain linear transformations. In
-        the context of tilt-series alignment they contain transformations which are
-        applied to 'align' a tilt-series such that images represent a fixed body rotating
-        around the Y-axis.
+        These shifts are applied **after** rotation/skew.
         """
         return self.xf_data[:, -2:]
 
     @property
-    def transformation_matrices(self):
-        """2D transformation matrices directly from xf data.
-
-        Output is an (n, 2, 2) numpy array of matrices.
-        """
+    def transformation_matrices(self) -> np.ndarray:
+        """`(n, 2, 2)` array containing `A11, A12, A21, A22` from xf data."""
         return self.xf_data[:, :4].reshape((-1, 2, 2))
 
     @property
-    def in_plane_rotations(self):
-        """Extract the in plane rotation angle from IMOD xf data.
+    def in_plane_rotations(self) -> np.ndarray:
+        """`(n, )` array of in plane rotation angles from xf data.
 
-        Output is an (n, ) numpy array of angles in degrees. This assumes
-        that the transformation in the xf file is a simple 2D rotation.
+        Angles are in degrees and counter-clockwise angles are positive.
         """
         cos_theta = self.transformation_matrices[:, 0, 0]
         theta = np.rad2deg(np.arccos(cos_theta))
@@ -69,18 +76,18 @@ class XF:
         return theta
 
     @property
-    def image_shifts(self):
-        """Shifts to align tilt-images with projected specimen.
+    def image_shifts(self) -> np.ndarray:
+        """`(n, 2)` array of xy shifts aligning tilt-images with the projected specimen.
 
-        Rotation center is in IMOD convention (N-1) / 2.
+        Rotation center is in IMOD convention `(N-1) / 2`.
         """
         inverse_transformation_matrices = np.linalg.pinv(self.transformation_matrices)
         return np.squeeze(inverse_transformation_matrices @ self.shifts.reshape((-1, 2, 1)))
 
     @property
-    def specimen_shifts(self):
-        """Shifts which align projected specimen with tilt-images.
+    def specimen_shifts(self) -> np.ndarray:
+        """`(n, 2)` array of xy shifts aligning the projected specimen with tilt-images.
 
-        Rotation center is in IMOD convention (N-1) / 2.
+        Rotation center is in IMOD convention `(N-1) / 2`.
         """
         return -self.image_shifts
