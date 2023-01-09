@@ -1,6 +1,6 @@
 from os import PathLike
 from pathlib import Path
-from typing import Dict, Any, List
+from typing import Dict, Any, Sequence
 
 import numpy as np
 
@@ -13,7 +13,7 @@ from .utils.installation import check_imod_installation
 
 def align_tilt_series_using_fiducials(
         tilt_series: np.ndarray,
-        tilt_angles: List[float],
+        tilt_angles: Sequence[float],
         pixel_size: float,
         fiducial_size: float,
         nominal_rotation_angle: float,
