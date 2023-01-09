@@ -63,7 +63,7 @@ def patch_tracking(
     output_directory: Path = typer.Option(..., help='directory for IMOD output.'),
     pixel_size: float = typer.Option(..., help='pixel spacing in Ångstroms.'),
     patch_size: float = typer.Option(
-        default=500, help='patch sidelength in Ångstroms.'
+        default=1000, help='patch sidelength in Ångstroms.'
     ),
     patch_overlap_percentage: float = typer.Option(
         default=33, help='percentage of tile-length to overlap on each side.'
