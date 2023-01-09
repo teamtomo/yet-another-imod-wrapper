@@ -10,7 +10,7 @@ A simple Python API for aligning single axis tilt-series in IMOD.
 
 ```python
 from yet_another_imod_wrapper import (
-    align_tilt_series_using_fiducials, 
+    align_tilt_series_using_fiducials,
     align_tilt_series_using_patch_tracking
 )
 import mrcfile
