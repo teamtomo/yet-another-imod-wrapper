@@ -29,6 +29,8 @@ dependencies = [
     "starfile",
     "pandas",
     "packaging",
+    "typer",
+    "rich",
 ]
 
 # extras
@@ -53,8 +55,8 @@ homepage = "https://github.com/teamtomo/yet-another-imod-wrapper"
 repository = "https://github.com/teamtomo/yet-another-imod-wrapper"
 
 # same as console_scripts entry point
-# [project.scripts]
-# yet-another-imod-wrapper = "yet-another-imod-wrapper:cli"
+[project.scripts]
+yet-another-imod-wrapper = "yet_another_imod_wrapper._cli:cli"
 
 # Entry points
 # https://peps.python.org/pep-0621/#entry-points
