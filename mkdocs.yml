@@ -1,0 +1,87 @@
+site_name: yet-another-imod-wrapper
+site_url: https://teamtomo.org/yet-another-imod-wrapper
+site_author: teamtomo
+site_description: >-
+  Documentation for docs-template
+repo_name: teamtomo/docs-template
+repo_url: https://github.com/teamtomo/yet-another-imod-wrapper
+edit_uri: edit/main/docs/
+
+copyright: Copyright &copy; 2022 - 2022 teamtomo
+
+
+# Custom navigation can be specified
+nav:
+  - Home: index.md
+  - Fiducials:
+      - fiducials/python.md
+      - fiducials/cli.md
+  - Patch-Tracking:
+      - patch-tracking/python.md
+      - patch-tracking/cli.md
+  - Metadata:
+      - metadata/handlers.md
+      - metadata/io.md
+theme:
+  icon:
+    logo: material/cube-outline
+  name: material
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: blue
+      accent: blue
+
+  features:
+    - navigation.instant
+    - navigation.expand
+    - search.highlight
+    - search.suggest
+    - content.tabs.link
+
+markdown_extensions:
+  - admonition
+  - tables
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.highlight
+  - pymdownx.tabbed:
+      alternate_style: true
+  - attr_list
+  - pymdownx.emoji:
+      emoji_index: !!python/name:materialx.emoji.twemoji
+      emoji_generator: !!python/name:materialx.emoji.to_svg
+  - md_in_html
+  - pymdownx.arithmatex:
+      generic: true
+
+plugins:
+  - search
+  - mkdocstrings:
+      watch:
+        - src/yet_another_imod_wrapper
+      handlers:
+        python:
+          import:
+            - https://docs.python.org/3/objects.inv
+          selection:
+            docstring_style: numpy
+            filters: [ "!^_" ]
+          rendering:
+            show_root_heading: true
+            show_root_toc_entry: true
+            show_root_full_path: true
+            show_object_full_path: false
+            # show_root_members_full_path: false
+            # show_category_heading: false
+            show_if_no_docstring: false
+            # show_signature: true
+            show_signature_annotations: true
+            show_source: true
+            # show_bases: true
+            # group_by_category: true
+            # heading_level: 2
+            members_order: source  # alphabetical/source
+
+            ## experimental
+            docstring_section_style: spacy  # or table/list/spacy

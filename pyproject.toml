@@ -48,6 +48,7 @@ dev = [
     "rich",
     "ruff",
     "mkdocs-material",
+    "mkdocstrings[python]",
 ]
 
 [project.urls]
