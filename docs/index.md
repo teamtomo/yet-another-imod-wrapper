@@ -20,9 +20,8 @@ IMOD is a powerful software package with a
 [huge API surface](https://bio3d.colorado.edu/imod/#Guides).
 Setting up
 [batchruntomo](https://bio3d.colorado.edu/imod/doc/batchGuide.html)
-can be tricky for those unfamiliar with IMOD and taking the results into  
-downstream tools for further processing requires a deep understanding of IMOD's 
-metadata model.
+can be tricky for those unfamiliar with IMOD and taking the results into downstream 
+tools for further processing requires a deep understanding of IMOD's metadata model.
 
 Covering only the use cases of single-axis cryo-TEM tilt-series alignment, 
 this package aims to provide a simple way to align tilt-series and work with IMOD 
