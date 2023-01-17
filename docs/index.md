@@ -8,13 +8,13 @@ This package aims to provide a simple API for aligning tilt-series using
     <img width="60%" src="https://user-images.githubusercontent.
 com/7307488/211384589-18d91111-ef31-4e7a-836b-4580cb602249.png">
 </p>
-  <figcaption>Aligning a tilt-series involves modelling how a 3D specimen 
+  <figcaption>Tilt-series alignment models how a 3D specimen 
 is projected into 2D. Reproduced from <a href="https://doi.org/10.
 1007/978-0-387-69008-7_6">a paper by David 
 Mastronarde</a>.</figcaption>
 </figure>
 
-## Why does this exist?
+## Why does this package exist?
 
 IMOD is a powerful software package with a 
 [huge API surface](https://bio3d.colorado.edu/imod/#Guides).
