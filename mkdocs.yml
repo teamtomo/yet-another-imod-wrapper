@@ -2,8 +2,8 @@ site_name: yet-another-imod-wrapper
 site_url: https://teamtomo.org/yet-another-imod-wrapper
 site_author: teamtomo
 site_description: >-
-  Documentation for docs-template
-repo_name: teamtomo/docs-template
+  Documentation for yet-another-imod-wrapper
+repo_name: teamtomo/yet-another-imod-wrapper
 repo_url: https://github.com/teamtomo/yet-another-imod-wrapper
 edit_uri: edit/main/docs/
 
