@@ -109,7 +109,7 @@ def get_tilt_angle_offset(align_log_file: Path) -> Union[float, None]:
     """Get the total tilt angle offset from an align.log file."""
     with open(align_log_file, mode='r') as file:
         for line in file:
-            if 'Total tilt angle change =' in line:
+            if 'AngleOffset =' in line:
                 return float(line.strip().split('=')[-1])
     return None
 
