@@ -61,7 +61,7 @@ class XF:
         """
         cos_theta = self.transformation_matrices[:, 0, 0]
         sin_theta = self.transformation_matrices[:, 1, 0]
-        theta = np.rad2deg(np.arctan2(-sin_theta / cos_theta))
+        theta = np.rad2deg(np.arctan2(-sin_theta, cos_theta))
         if self.initial_tilt_axis_rotation_angle is None:
             warn(
                 'no initial value provided for tilt-axis angle was \
